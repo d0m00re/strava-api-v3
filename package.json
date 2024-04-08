@@ -1,0 +1,18 @@
+{
+  "name": "strava-api-v3",
+  "version": "1.0.0",
+  "description": "learn and create strava wrapper api implementation with ts/fetch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "npx tsc;node ./build/main.js",
+    "build" : "npx tsc",
+    "clean" : "rm -Rf ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.4"
+  }
+}
