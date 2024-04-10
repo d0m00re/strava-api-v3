@@ -923,11 +923,4 @@ $ http get "https://www.strava.com/api/v3/clubs/{id}/activities?page=&per_page="
     }
 }
 
-
-
-/*
-
-
-*/
-
 export default StravaApi;
