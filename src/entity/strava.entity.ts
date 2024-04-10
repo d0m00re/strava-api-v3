@@ -1,7 +1,7 @@
 /**
  * A set of rolled-up statistics and totals for an athlete
  */
-interface IActivitiesStats {
+export interface IActivitiesStats {
     biggest_ride_distance: number;//double 	The longest distance ridden by the athlete.
     biggest_climb_elevation_gain: number; //double 	The highest climb ridden by the athlete.
     recent_ride_totals: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) ride stats for the athlete.
@@ -18,7 +18,7 @@ interface IActivitiesStats {
 /**
  * A roll-up of metrics pertaining to a set of activities. Values are in seconds and meters.
  */
-interface IActivityTotal {
+export interface IActivityTotal {
     count: number; //integer 	The number of activities considered in this total.
     distance: number;// float 	The total distance covered by the considered activities.
     moving_time: number;//integer 	The total moving time of the considered activities.
@@ -31,9 +31,9 @@ interface IActivityTotal {
  * An enumeration of the types an activity may have. Note that this enumeration does not include new sport types (e.g. MountainBikeRide, EMountainBikeRide), activities with these sport types will have the corresponding activity type (e.g. Ride for MountainBikeRide, EBikeRide for EMountainBikeRide)
  * https://developers.strava.com/docs/reference/#api-models-ActivityType
  */
-type TActivityType = 'AlpineSki' | 'BackcountrySki' | 'Canoeing' | 'Crossfit' | 'EBikeRide' | 'Elliptical' | 'Golf' | 'Handcycle' | 'Hike' | 'IceSkate' | 'InlineSkate' | 'Kayaking' | 'Kitesurf' | 'NordicSki' | 'Ride' | 'RockClimbing' | 'RollerSki' | 'Rowing' | 'Run' | 'Sail' | 'Skateboard' | 'Snowboard' | 'Snowshoe' | 'Soccer' | 'StairStepper' | 'StandUpPaddling' | 'Surfing' | 'Swim' | 'Velomobile' | 'VirtualRide' | 'VirtualRun' | 'Walk' | 'WeightTraining' | 'Wheelchair' | 'Windsurf' | 'Workout' | 'Yoga';
+export type TActivityType = 'AlpineSki' | 'BackcountrySki' | 'Canoeing' | 'Crossfit' | 'EBikeRide' | 'Elliptical' | 'Golf' | 'Handcycle' | 'Hike' | 'IceSkate' | 'InlineSkate' | 'Kayaking' | 'Kitesurf' | 'NordicSki' | 'Ride' | 'RockClimbing' | 'RollerSki' | 'Rowing' | 'Run' | 'Sail' | 'Skateboard' | 'Snowboard' | 'Snowshoe' | 'Soccer' | 'StairStepper' | 'StandUpPaddling' | 'Surfing' | 'Swim' | 'Velomobile' | 'VirtualRide' | 'VirtualRun' | 'Walk' | 'WeightTraining' | 'Wheelchair' | 'Windsurf' | 'Workout' | 'Yoga';
 
-interface IStreamSet {
+export interface IStreamSet {
     time: ITimeStream;//TimeStream 	An instance of TimeStream.
     distance: IDistanceStream;//DistanceStream 	An instance of DistanceStream.
     latlng: ILatLngStream; //LatLngStream 	An instance of LatLngStream.
@@ -47,7 +47,7 @@ interface IStreamSet {
     grade_smooth: ISmoothGradeStream; //SmoothGradeStream 	An instance of SmoothGradeStream. 
 }
 
-interface ISummaryGear {
+export interface ISummaryGear {
     id: string;//string 	The gear's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"
     primary: boolean;//boolean 	Whether this gear's is the owner's default one.
@@ -55,7 +55,7 @@ interface ISummaryGear {
     distance: number; //float 	 The distance logged with this gear. 
 }
 
-interface ISummaryPRSegmentEffort {
+export interface ISummaryPRSegmentEffort {
     pr_activity_id: number;//long 	The unique identifier of the activity related to the PR effort.
     pr_elapsed_time: number;//integer 	The elapsed time ot the PR effort.
     pr_date: string; //DateTime 	The time at which the PR effort was started.
@@ -68,7 +68,7 @@ interface ISummaryPRSegmentEffort {
 /**
  * ...
  */
-interface IActivityZone {
+export interface IActivityZone {
     score: number; //integer 	An instance of integer.
     distribution_buckets: string;//#/TimedZoneDistribution 	An instance of #/TimedZoneDistribution.
     type: string;//string 	May take one of the following values: heartrate, power
@@ -78,13 +78,13 @@ interface IActivityZone {
     max: number;//integer 	An instance of integer. 
 }
 
-interface IBaseStream {
+export interface IBaseStream {
     original_size: number; //integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
 }
 
-interface IClubActivity {
+export interface IClubActivity {
     athlete: IMetaAthlete;//MetaAthlete 	An instance of MetaAthlete.
     name: string;//string 	The name of the activity
     distance: number;//float 	The activity's distance, in meters
@@ -96,7 +96,7 @@ interface IClubActivity {
     workout_type: number; //integer  The activity's workout type  	
 }
 
-interface IClubAthlete {
+export interface IClubAthlete {
     resource_state: 1 | 2 | 3; //integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string;//string 	The athlete's first name.
     lastname: string;//string 	The athlete's last initial.
@@ -105,7 +105,7 @@ interface IClubAthlete {
     owner: boolean;//boolean 	Whether the athlete is club owner. 
 }
 
-interface IClubComment {
+export interface IClubComment {
     id: number;//long 	The unique identifier of this comment
     activity_id: number;//long 	The identifier of the activity this comment is related to
     text: string; //string 	The content of the comment
@@ -113,13 +113,13 @@ interface IClubComment {
     created_at: string; // The time at which this comment was created. 
 }
 
-interface IError {
+export interface IError {
     code: string;//string 	The code associated with this error.
     field: string; //string 	The specific field or aspect of the resource associated with this error.
     resource: string; //string 	The type of resource associated with this error. 
 }
 
-interface ExplorerSegment {
+export interface ExplorerSegment {
     id: number;//long 	The unique identifier of this segment
     name: string;//string 	The name of this segment
     climb_category: "NG" | 0 | 1 | 2 | 3 | 4 | 5 | "LG"; //integer 	The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category. If climb_category = 5, climb_category_desc = HC. If climb_category = 2, climb_category_desc = 3.
@@ -135,12 +135,12 @@ interface ExplorerSegment {
 /**
  * Encapsulates the errors that may be returned from the API.
  */
-interface IFault {
+export interface IFault {
     errors: IError;//Error 	The set of specific errors associated with this fault, if any.
     message: string; //string 	 The message of the fault.
 }
 
-interface IHeartRateZoneRanges {
+export interface IHeartRateZoneRanges {
     custom_zones: boolean;//boolean 	Whether the athlete has set their own custom heart rate zones
     zones: IZoneRanges;// An instance of ZoneRanges. 
 }
@@ -148,7 +148,7 @@ interface IHeartRateZoneRanges {
 /**
  * 
  */
-interface ILap {
+export interface ILap {
     id: number;//long 	The unique identifier of this lap
     activity: IMetaActivity; //MetaActivity 	An instance of MetaActivity.
     athlete: IMetaAthlete; //MetaAthlete 	An instance of MetaAthlete.
@@ -172,29 +172,29 @@ interface ILap {
 /**
  * A collection of float objects. A pair of latitude/longitude coordinates, represented as an array of 2 floating point numbers.
  */
-type TLatLng = [latitude: number, longitude: number];
+export type TLatLng = [latitude: number, longitude: number];
 
 
-interface IMetaActivity {
+export interface IMetaActivity {
     id: number;//long 	The unique identifier of the activity
 }
 
-interface IMetaAthlete {
+export interface IMetaAthlete {
     id: number; //long The unique identifier of the athlete 
 }
 
-interface IMetaClub {
+export interface IMetaClub {
     id: number;//long 	The club's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     name: string;//string 	The club's name. 
 }
 
 // todo : check set of segments
-interface IExplorerResponse {
+export interface IExplorerResponse {
     segments: IExplorerSegment;// //ExplorerSegment 	The set of segments matching an explorer request 
 }
 
-interface IExplorerSegment {
+export interface IExplorerSegment {
     id: number;//long 	The unique identifier of this segment
     name: string;//string 	The name of this segment
     climb_category: number;//integer 	The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category. If climb_category = 5, climb_category_desc = HC. If climb_category = 2, climb_category_desc = 3.
@@ -207,12 +207,12 @@ interface IExplorerSegment {
     points: string; //string 	The polyline of the segment 
 }
 
-interface IPhotosSummary {
+export interface IPhotosSummary {
     count: number; //integer 	The number of photos
     primary: IPhotosSummaryPrimary; //PhotosSummary_primary 	An instance of PhotosSummary_primary. 
 }
 
-interface IPhotosSummaryPrimary {
+export interface IPhotosSummaryPrimary {
     id: number;//long 	An instance of long.
     source: number; //integer 	An instance of integer.
     unique_id: string; //string 	An instance of string.
@@ -220,17 +220,17 @@ interface IPhotosSummaryPrimary {
 }
 
 // why string for id this time? probably not the same db
-interface IPolylineMap {
+export interface IPolylineMap {
     id: string;//string 	The identifier of the map
     polyline: string; // string 	The polyline of the map, only returned on detailed representation of an object
     summary_polyline: string; // string The summary polyline of the map  	
 }
 
-interface IPowerZoneRanges {
+export interface IPowerZoneRanges {
     zones: IZoneRanges; //ZoneRanges 	An instance of ZoneRanges. 
 }
 
-interface IRoute {
+export interface IRoute {
     athlete: ISummaryAthlete; //SummaryAthlete 	An instance of SummaryAthlete.
     description: string;//string 	The description of the route
     distance: number;//float 	The route's distance, in meters
@@ -251,7 +251,7 @@ interface IRoute {
     waypoints: IWaypoint;//Waypoint 	The custom waypoints along this route 
 }
 
-interface ISplit {
+export interface ISplit {
     average_speed: number;//float 	The average speed of this split, in meters per second
     distance: number;//float 	The distance of this split, in meters
     elapsed_time: number;//integer 	The elapsed time of this split, in seconds
@@ -263,7 +263,7 @@ interface ISplit {
 
 type TSportType = 'AlpineSki' | 'BackcountrySki' | 'Badminton' | 'Canoeing' | 'Crossfit' | 'EBikeRide' | 'Elliptical' | 'EMountainBikeRide' | 'Golf' | 'GravelRide' | 'Handcycle' | 'HighIntensityIntervalTraining' | 'Hike' | 'IceSkate' | 'InlineSkate' | 'Kayaking' | 'Kitesurf' | 'MountainBikeRide' | 'NordicSki' | 'Pickleball' | 'Pilates' | 'Racquetball' | 'Ride' | 'RockClimbing' | 'RollerSki' | 'Rowing' | 'Run' | 'Sail' | 'Skateboard' | 'Snowboard' | 'Snowshoe' | 'Soccer' | 'Squash' | 'StairStepper' | 'StandUpPaddling' | 'Surfing' | 'Swim' | 'TableTennis' | 'Tennis' | 'TrailRun' | 'Velomobile' | 'VirtualRide' | 'VirtualRow' | 'VirtualRun' | 'Walk' | 'WeightTraining' | 'Wheelchair' | 'Windsurf' | 'Workout' | 'Yoga';
 
-interface ISummarySegment {
+export interface ISummarySegment {
     id: number;//long 	The unique identifier of this segment
     name: string;//string 	The name of this segment
     activity_type: string; //string 	May take one of the following values: Ride, Run
@@ -283,7 +283,7 @@ interface ISummarySegment {
     athlete_segment_stats: ISummarySegmentEffort; //SummarySegmentEffort 	An instance of SummarySegmentEffort. 
 }
 
-interface ISummarySegmentEffort {
+export interface ISummarySegmentEffort {
     id: number;//long 	The unique identifier of this effort
     activity_id: number;//long 	The unique identifier of the activity related to this effort
     elapsed_time: number;//integer 	The effort's elapsed time
@@ -296,7 +296,7 @@ interface ISummarySegmentEffort {
 //A collection of #/TimedZoneRange objects. Stores the exclusive ranges representing zones and the time spent in each.
 type TTimedZoneDistribution = ITimedZoneRange[];
 
-interface IUpdatableActivity {
+export interface IUpdatableActivity {
     commute: boolean;//boolean 	Whether this activity is a commute
     trainer: boolean;//boolean 	Whether this activity was recorded on a training machine
     hide_from_home: boolean;//boolean 	Whether this activity is muted
@@ -307,7 +307,7 @@ interface IUpdatableActivity {
     gear_id: string; //string 	Identifier for the gear associated with the activity. ‘none’ clears gear from activity 
 }
 
-interface IUpload {
+export interface IUpload {
     id: number;//long 	The unique identifier of the upload
     id_str: string;//string 	The unique identifier of the upload in string format
     external_id: string;//string 	The external identifier of the upload
@@ -316,7 +316,7 @@ interface IUpload {
     activity_id: number;//long 	The identifier of the activity this upload resulted into 
 }
 
-interface IWaypoint {
+export interface IWaypoint {
     latlng: TLatLng; //LatLng 	The location along the route that the waypoint is closest to
     target_latlng: TLatLng; //LatLng 	A location off of the route that the waypoint is (optional)
     categories: string; // 	Categories that the waypoint belongs to
@@ -325,33 +325,33 @@ interface IWaypoint {
     distance_into_route: number; //integer 	The number meters along the route that the waypoint is located 
 }
 
-interface IZoneRange {
+export interface IZoneRange {
     min: number;// integer 	The minimum value in the range.
     max: number; //integer 	The maximum value in the range. 
 }
 
-type IZoneRanges = IZoneRange[];
+export type IZoneRanges = IZoneRange[];
 
-interface IZone {
+export interface IZone {
     heart_rate: IHeartRateZoneRanges;//HeartRateZoneRanges 	An instance of HeartRateZoneRanges.
     power: IPowerZoneRanges;//PowerZoneRanges 	An insta
 }
 
-interface IAltitudeStream {
+export interface IAltitudeStream {
     original_size: number; //integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//float 	 The sequence of altitude values for this stream, in meters 
 }
 
-interface ICadenceStream {
+export interface ICadenceStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string; //string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//integer 	The sequence of cadence values for this stream, in rotations per minute 
 }
 
-interface IDetailedGear {
+export interface IDetailedGear {
     id: string; //string 	The gear's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"
     primary: boolean;//boolean 	Whether this gear's is the owner's default one.
@@ -363,7 +363,7 @@ interface IDetailedGear {
     description: string; //string 	The gear's description. 
 }
 
-interface IDetailedSegment {
+export interface IDetailedSegment {
     id: number;//long 	The unique identifier of this segment
     name: string;//string 	The name of this segment
     activity_type: string;//string 	May take one of the following values: Ride, Run
@@ -391,7 +391,7 @@ interface IDetailedSegment {
     star_count: number; //integer 	The number of stars for this segment 
 }
 
-interface IDetailedSegmentEffort {
+export interface IDetailedSegmentEffort {
     id: number; //long 	The unique identifier of this effort
     activity_id: number;//long 	The unique identifier of the activity related to this effort
     elapsed_time: number;//integer 	The effort's elapsed time
@@ -416,56 +416,56 @@ interface IDetailedSegmentEffort {
     hidden: boolean;//boolean 	Whether this effort should be hidden when viewed within an activity 
 }
 
-interface IDistanceStream {
+export interface IDistanceStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;  //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//float 	The sequence of distance values for this stream, in meters 
 }
 
-interface IHeartrateStream {
+export interface IHeartrateStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//integer 	The sequence of heart rate values for this stream, in beats per minute 
 }
 
-interface ILatLngStream {
+export interface ILatLngStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: TLatLng; //LatLng 	The sequence of lat/long values for this stream 
 }
 
-interface IMovingStream {
+export interface IMovingStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: boolean;//boolean 	The sequence of moving values for this stream, as boolean values 
 }
 
-interface IPowerStream {
+export interface IPowerStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//integer 	The sequence of power values for this stream, in watts 
 }
 
-interface ISmoothGradeStream {
+export interface ISmoothGradeStream {
     original_size: number; //integer 	The number of data points in this stream
     resolution: string; //string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//float 	The sequence of grade values for this stream, as percents of a grade
 }
 
-interface ISmoothVelocityStream {
+export interface ISmoothVelocityStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
     data: number;//float 	The sequence of velocity values for this stream, in meters per second 
 }
 
-interface ISummaryActivity {
+export interface ISummaryActivity {
     id: number;//long 	The unique identifier of the activity
     external_id: string;//string 	The identifier provided at upload time
     upload_id: number;//long 	The identifier of the upload that resulted in this activity
@@ -510,7 +510,7 @@ interface ISummaryActivity {
     weighted_average_watts: number; //integer 	Similar to Normalized Power. Rides with power meter data only 
 }
 
-interface ISummaryAthlete {
+export interface ISummaryAthlete {
     id: number;//long 	The unique identifier of the athlete
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string;//string 	The athlete's first name.
@@ -527,7 +527,7 @@ interface ISummaryAthlete {
     updated_at: string; //DateTime 	The time at which the athlete was last updated. 
 }
 
-interface ISummaryClub {
+export interface ISummaryClub {
     id: number;//long 	The club's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     name: number;//string 	The club's name.
@@ -547,7 +547,7 @@ interface ISummaryClub {
 }
 
 // data????
-interface ITemperatureStream {
+export interface ITemperatureStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
@@ -555,7 +555,7 @@ interface ITemperatureStream {
 }
 
 // data ?????
-interface ITimeStream {
+export interface ITimeStream {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
@@ -565,13 +565,13 @@ interface ITimeStream {
 /**
  * A union type representing the time spent in a given zone.
  */
-interface ITimedZoneRange {
+export interface ITimedZoneRange {
     min: number;//integer 	The minimum value in the range.
     max: number;//integer 	The maximum value in the range.
     time: number;//integer 	The number of seconds spent in this zone 
 }
 
-interface IDetailedActivity {
+export interface IDetailedActivity {
     id: number;//long 	The unique identifier of the activity
     external_id: string;//string 	The identifier provided at upload time
     upload_id: number;//long 	The identifier of the upload that resulted in this activity
@@ -627,32 +627,37 @@ interface IDetailedActivity {
     best_efforts: IDetailedSegmentEffort //DetailedSegmentEffort 	A collection of DetailedSegmentEffort objects. 
 }
 
-interface IDetailedAthlete {
+export interface IDetailedAthlete {
     id: number;//long 	The unique identifier of the athlete
+    username: string | null;// not defined inside doc
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string; //string 	The athlete's first name.
     lastname: string;//string 	The athlete's last name.
+    bio: string | null;
     profile_medium: string;//string 	URL to a 62x62 pixel profile picture.
     profile: string; //string 	URL to a 124x124 pixel profile picture.
     city: string;//string 	The athlete's city.
     state: string; //string 	The athlete's state or geographical region.
-    country: string;//string 	The athlete's country.
+    country: string | null;//string 	The athlete's country.
     sex: "M" | "F";// string 	The athlete's sex. May take one of the following values: M, F
     premium: boolean;//boolean 	Deprecated. Use summit field instead. Whether the athlete has any Summit subscription.
     summit: boolean; //boolean 	Whether the athlete has any Summit subscription.
     created_at: string;//DateTime 	The time at which the athlete was created.
     updated_at: string; //DateTime 	The time at which the athlete was last updated.
-    follower_count: number;//integer 	The athlete's follower count.
-    friend_count: number;//integer 	The athlete's friend count.
-    measurement_preference: string; //string 	The athlete's preferred unit system. May take one of the following values: feet, meters
-    ftp: number;//integer 	The athlete's FTP (Functional Threshold Power).
+    badge_type_id: null | number;
+    friend: any | null; // ?????
+    follower: any | null; // ????
+    follower_count?: number;//integer 	The athlete's follower count.
+    friend_count?: number;//integer 	The athlete's friend count.
+    measurement_preference?: string; //string 	The athlete's preferred unit system. May take one of the following values: feet, meters
+    ftp?: number;//integer 	The athlete's FTP (Functional Threshold Power).
     weight: number;//float 	The athlete's weight.
-    clubs: ISummaryClub; //SummaryClub 	The athlete's clubs.
-    bikes: ISummaryGear;//SummaryGear 	The athlete's bikes.
-    shoes: ISummaryGear;// SummaryGear 	The athlete's shoes. 
+    clubs?: ISummaryClub; //SummaryClub 	The athlete's clubs.
+    bikes?: ISummaryGear;//SummaryGear 	The athlete's bikes.
+    shoes?: ISummaryGear;// SummaryGear 	The athlete's shoes. 
 }
 
-interface IDetailedClub {
+export interface IDetailedClub {
     id: number;//long 	The club's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     name: string;//string 	The club's name.
@@ -675,7 +680,7 @@ interface IDetailedClub {
     following_count: number;//integer 	The number of athletes in the club that the logged-in athlete follows. 
 }
 
-interface IAthlete {
+export interface IAthlete {
     id: number; //long 	The unique identifier of the athlete
     resource_state: 1 | 2 | 3; //Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string; //string 	The athlete's first name.
@@ -701,10 +706,18 @@ interface IAthlete {
     shoes: ISummaryGear; //SummaryGear 	The athlete's shoes. 
 }
 
-interface ISummaryGear {
+export interface ISummaryGear {
     id: string;//string 	The gear's unique identifier.
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 2 -> "summary", 3 -> "detail"
     primary: boolean;//boolean 	Whether this gear's is the owner's default one.
     name: string; //string 	The gear's name.
     distance: number;//    float 	The distance logged with this gear. 
+}
+
+export interface IComment {
+    id: number;//long 	The unique identifier of this comment
+    activity_id: number;//long 	The identifier of the activity this comment is related to
+    text: string; //string 	The content of the comment
+    athlete: ISummaryAthlete; //SummaryAthlete 	An instance of SummaryAthlete.
+    created_at: string;//DateTime 	The time at which this comment was created. 
 }
