@@ -1,5 +1,6 @@
 import type {Config} from 'jest';
 
+// silent : hide show console.log
 const config: Config = {
   verbose: true,
   preset: 'ts-jest',
@@ -8,7 +9,7 @@ const config: Config = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js'],
-  silent: true
+  silent: false
 };
 
 export default config;
