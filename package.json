@@ -1,17 +1,34 @@
 {
   "name": "strava-api-v3",
-  "version": "1.0.0",
+  "type" : "module",
+  "version": "0.0.1",
   "description": "learn and create strava wrapper api implementation with ts/fetch",
-  "main": "index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "npx tsc;node ./build/src/main.js",
+    "start" : "npx tsc --project tsconfig.json;node ./dist/src/main.js",
     "build" : "npx tsc",
-    "clean" : "rm -Rf ./build"
+    "clean" : "rm -Rf ./dist"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d0m00re/strava-api-v3.git"
+  },
+  "publishConfig": {
+    "registry": "https://oOo.com"
+  },
+  "keywords": [
+    "strava",
+    "strava api v3",
+    "typescript"
+  ],
+  "author": "d0m00re",
   "license": "ISC",
+  "private" : false,
+  "bugs": {
+    "url": "https://github.com/d0m00re/strava-api-v3/issues"
+  },
+  "homepage": "https://github.com/d0m00re/strava-api-v3#readme",
   "devDependencies": {
     "typescript": "^5.4.4"
   }
