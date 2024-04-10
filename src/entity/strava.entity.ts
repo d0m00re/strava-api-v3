@@ -665,7 +665,14 @@ export interface IDetailedClub {
     cover_photo: string;//string 	URL to a ~1185x580 pixel cover photo.
     cover_photo_small: string; //string 	URL to a ~360x176 pixel cover photo.
     sport_type: string; //string 	Deprecated. Prefer to use activity_types. May take one of the following values: cycling, running, triathlon, other
-    activity_types: TActivityType; //ActivityType 	The activity types that count for a club. This takes precedence over sport_type.
+    activity_types: TActivityType[]; //ActivityType 	The activity types that count for a club. This takes precedence over sport_type.
+    profile : string; // doc no present
+    activity_types_icon : string; // doc no present
+    dimensions : string[]; // doc no present
+    description : string; // doc no present
+    club_type : string; // doc no present
+    website : string; // doc no present
+    localized_sport_type : string;
     city: string; //string 	The club's city.
     state: string; //string 	The club's state or geographical region.
     country: string; //string 	The club's country.

@@ -1,7 +1,9 @@
 /src
 /node_modules
+/test
 .env
 .DS_STORE
 
 tsconfig.json
 tsup.config.ts
+jest.config.ts
