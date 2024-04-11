@@ -1,7 +1,6 @@
 import * as strava from "./../../src/";
 
-const accessKey = 'strava_test';
-const ApiStrava = new strava.Strava(accessKey);
+const ApiStrava = new strava.Strava(process.env.STRAVA_ACCESS_TOKEN ?? "");
 
 describe('getClubMembersById', () => {
 

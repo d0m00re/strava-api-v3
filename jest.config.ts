@@ -5,6 +5,7 @@ const config: Config = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
+  setupFiles: ['./jest.setup.ts'],
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },

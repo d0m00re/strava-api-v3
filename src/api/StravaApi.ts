@@ -86,7 +86,7 @@ interface IGetLoggedInAthleteClubs {
 }
 
 interface IGetGearById {
-    id: number;//required String, in path 	The identifier of the gear. 
+    id: string;//required String, in path 	The identifier of the gear. 
 }
 
 interface IGetRouteAsGPX {
@@ -921,6 +921,9 @@ $ http get "https://www.strava.com/api/v3/clubs/{id}/activities?page=&per_page="
             throw error;
         }
     }
+
+    // auth0 test
+    
 }
 
 export default StravaApi;
