@@ -3,6 +3,14 @@
 # strava-api-v3
 learn and create strava wrapper api implementation with ts/fetch
 
+## API ROUTES
+### athlete
+* getLoggedInAthlete : ok
+
+### club
+* getClubById : ok
+* getClubActivitiesById
+
 # api problem :
 ## DetailedAthlete
 * username not defined inside the documentation for DetailedAthlete doc object
@@ -24,6 +32,6 @@ learn and create strava wrapper api implementation with ts/fetch
 * club_type : string; // doc no present
 * website : string; // doc no present
 
-
-
-
+# club member
+member no prsent
+membership : 'member' | ???

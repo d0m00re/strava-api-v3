@@ -1,4 +1,4 @@
-import * as strava from "./../src/";
+import * as strava from "./../../src/";
 
 describe('getLoggedInAthlete', () => {
     test('firstname', async () => {

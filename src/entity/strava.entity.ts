@@ -85,6 +85,7 @@ export interface IBaseStream {
 }
 
 export interface IClubActivity {
+    resource_state : number;
     athlete: IMetaAthlete;//MetaAthlete 	An instance of MetaAthlete.
     name: string;//string 	The name of the activity
     distance: number;//float 	The activity's distance, in meters
@@ -93,16 +94,17 @@ export interface IClubActivity {
     total_elevation_gain: number;//float 	The activity's total elevation gain.
     type: TActivityType; //ActivityType 	Deprecated. Prefer to use sport_type
     sport_type: TSportType; //SportType 	An instance of SportType.
-    workout_type: number; //integer  The activity's workout type  	
+    workout_type ?: number | null; //integer  The activity's workout type  	| doc bad type
 }
 
 export interface IClubAthlete {
     resource_state: 1 | 2 | 3; //integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string;//string 	The athlete's first name.
     lastname: string;//string 	The athlete's last initial.
-    member: string;//string 	The athlete's member status.
+    //member ?: string;//string 	The athlete's member status.
     admin: boolean;//boolean 	Whether the athlete is a club admin.
     owner: boolean;//boolean 	Whether the athlete is club owner. 
+    membership : 'member' | 'admin';
 }
 
 export interface IClubComment {
@@ -180,7 +182,10 @@ export interface IMetaActivity {
 }
 
 export interface IMetaAthlete {
-    id: number; //long The unique identifier of the athlete 
+    id ?: number; //long The unique identifier of the athlete 
+    resource_state : number; // not in doc
+    firstname : string; // not in doc
+    lastname : string; // not in doc
 }
 
 export interface IMetaClub {
@@ -511,31 +516,35 @@ export interface ISummaryActivity {
 }
 
 export interface ISummaryAthlete {
-    id: number;//long 	The unique identifier of the athlete
+    id ?: number;//long 	The unique identifier of the athlete
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string;//string 	The athlete's first name.
     lastname: string; //string 	The athlete's last name.
-    profile_medium: string;//string 	URL to a 62x62 pixel profile picture.
-    profile: string; //string 	URL to a 124x124 pixel profile picture.
-    city: string;//string 	The athlete's city.
-    state: string; //string 	The athlete's state or geographical region.
-    country: string;//string 	The athlete's country.
-    sex: "M" | "F"; //string 	The athlete's sex. May take one of the following values: M, F
-    premium: boolean;//boolean 	Deprecated. Use summit field instead. Whether the athlete has any Summit subscription.
-    summit: boolean;//boolean 	Whether the athlete has any Summit subscription.
-    created_at: string; //DateTime 	The time at which the athlete was created.
-    updated_at: string; //DateTime 	The time at which the athlete was last updated. 
+    profile_medium ?: string;//string 	URL to a 62x62 pixel profile picture.
+    profile ?: string; //string 	URL to a 124x124 pixel profile picture.
+    city ?: string;//string 	The athlete's city.
+    state ?: string; //string 	The athlete's state or geographical region.
+    country ?: string;//string 	The athlete's country.
+    sex ?: "M" | "F"; //string 	The athlete's sex. May take one of the following values: M, F
+    premium ?: boolean;//boolean 	Deprecated. Use summit field instead. Whether the athlete has any Summit subscription.
+    summit ?: boolean;//boolean 	Whether the athlete has any Summit subscription.
+    created_at ?: string; //DateTime 	The time at which the athlete was created.
+    updated_at ?: string; //DateTime 	The time at which the athlete was last updated. 
 }
 
 export interface ISummaryClub {
     id: number;//long 	The club's unique identifier.
+    profile : string; // not in
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
-    name: number;//string 	The club's name.
+    name: string;//string 	The club's name.
     profile_medium: string; //string 	URL to a 60x60 pixel profile picture.
-    cover_photo: string;//string 	URL to a ~1185x580 pixel cover photo.
-    cover_photo_small: string;//string 	URL to a ~360x176 pixel cover photo.
+    cover_photo: string | null;//string | null ni 	URL to a ~1185x580 pixel cover photo.
+    cover_photo_small: string | null;//string | null ni 	URL to a ~360x176 pixel cover photo.
     sport_type?: string;//string 	Deprecated. Prefer to use activity_types. May take one of the following values: cycling, running, triathlon, other
-    activity_types: TActivityType;// ActivityType 	The activity types that count for a club. This takes precedence over sport_type.
+    activity_types: TActivityType[];// ActivityType 	The activity types that count for a club. This takes precedence over sport_type.
+    activity_types_icon : string; // not in
+    dimensions :string[]; // not in
+    localized_sport_type : string | "Multysport"; // not in
     city: string;//string 	The club's city.
     state: string;//string 	The club's state or geographical region.
     country: string; //string 	The club's country.
