@@ -6,6 +6,7 @@ import StravaRoutesApi from "./StravaRoutesApi";
 import StravaSegmentApi from "./StravaSegmentApi";
 import StravaSegmentEffortsApi from "./StravaSegmentEffortsApi";
 import StravaUploadApi from "./StravaUploadApi";
+import StravaAuth0Api from "./StravaAuth0Api";
 
 export {
     StravaActivityApi,
@@ -15,5 +16,6 @@ export {
     StravaRoutesApi,
     StravaSegmentApi,
     StravaSegmentEffortsApi,
-    StravaUploadApi
+    StravaUploadApi,
+    StravaAuth0Api
 }

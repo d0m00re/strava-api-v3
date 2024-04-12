@@ -16,7 +16,8 @@ class StravaApi {
     private clientId : string;
     private clientSecret : string;
     private baseUrl: string = "https://www.strava.com/api/v3";
-    
+
+    public auth0 : subApi.StravaAuth0Api;
     public activity : subApi.StravaActivityApi;
     public athlete : subApi.StravaAthleteApi;
     public club : subApi.StravaClubApi;
@@ -32,6 +33,7 @@ class StravaApi {
         this.clientSecret = props.clientSecret;
         this.refreshToken = props.refreshToken ?? "";
 
+        this.auth0 = new subApi.StravaAuth0Api(this);
         this.activity = new subApi.StravaActivityApi(this);
         this.athlete = new subApi.StravaAthleteApi(this);
         this.club = new subApi.StravaClubApi(this);

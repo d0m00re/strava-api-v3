@@ -24,9 +24,9 @@ interface IGetClubMembersById {
 }
 
 class StravaClubApi {
-    stravaApi : StravaApi;
+    stravaApi: StravaApi;
 
-    constructor (stravaApi : StravaApi) {
+    constructor(stravaApi: StravaApi) {
         this.stravaApi = stravaApi;
     }
 
@@ -45,57 +45,57 @@ class StravaClubApi {
         }
     }
 
-        /**
+    /**
      * 
      * @param props 
      * @returns Returns a list of the administrators of a given club.
      */
-        async getClubAdminsById(props: IGetClubAdminsById): Promise<entity.ISummaryAthlete[]> {
-            try {
-                let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/admins?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
-                const response = await fetch(url, {
-                    headers: this.stravaApi.getAuthHeader(),
-                    method: "GET"
-                }).then(resp => resp.json());
-    
-                return response
-            } catch (error) {
-                console.error('Error fetching athlete profile:', error);
-                throw error;
-            }
+    async getClubAdminsById(props: IGetClubAdminsById): Promise<entity.ISummaryAthlete[]> {
+        try {
+            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/admins?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const response = await fetch(url, {
+                headers: this.stravaApi.getAuthHeader(),
+                method: "GET"
+            }).then(resp => resp.json());
+
+            return response
+        } catch (error) {
+            console.error('Error fetching athlete profile:', error);
+            throw error;
         }
-    
-        async getClubById(props: IGetClubById): Promise<entity.IDetailedClub> {
-            try {
-                let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}`;
-                const response = await fetch(url, {
-                    headers: this.stravaApi.getAuthHeader(),
-                    method: "GET"
-                }).then(resp => resp.json());
-    
-                return response
-            } catch (error) {
-                console.error('Error fetching athlete profile:', error);
-                throw error;
-            }
+    }
+
+    async getClubById(props: IGetClubById): Promise<entity.IDetailedClub> {
+        try {
+            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}`;
+            const response = await fetch(url, {
+                headers: this.stravaApi.getAuthHeader(),
+                method: "GET"
+            }).then(resp => resp.json());
+
+            return response
+        } catch (error) {
+            console.error('Error fetching athlete profile:', error);
+            throw error;
         }
-        /**
-         * Returns a list of the athletes who are members of a given club.
-         */
-        async getClubMembersById(props: IGetClubMembersById): Promise<entity.IClubAthlete[]> {
-            try {
-                let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/members?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
-                const response = await fetch(url, {
-                    headers: this.stravaApi.getAuthHeader(),
-                    method: "GET"
-                }).then(resp => resp.json());
-    
-                return response
-            } catch (error) {
-                console.error('Error fetching athlete profile:', error);
-                throw error;
-            }
+    }
+    /**
+     * Returns a list of the athletes who are members of a given club.
+     */
+    async getClubMembersById(props: IGetClubMembersById): Promise<entity.IClubAthlete[]> {
+        try {
+            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/members?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const response = await fetch(url, {
+                headers: this.stravaApi.getAuthHeader(),
+                method: "GET"
+            }).then(resp => resp.json());
+
+            return response
+        } catch (error) {
+            console.error('Error fetching athlete profile:', error);
+            throw error;
         }
+    }
 
 }
 export default StravaClubApi;

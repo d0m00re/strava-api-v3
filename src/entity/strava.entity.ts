@@ -714,12 +714,12 @@ export interface IAthlete {
     follower_count: number; //integer 	The athlete's follower count.
     friend_count: number;//integer 	The athlete's friend count.
     measurement_preference: string;//string 	The athlete's preferred unit system. May take one of the following values: feet, meters
-    ftp: number;//integer 	The athlete's FTP (Functional Threshold Power).
+    ftp ?: number;//integer 	The athlete's FTP (Functional Threshold Power).
     weight: number; //float 	The athlete's weight.
 
-    clubs: ISummaryClub; //SummaryClub 	The athlete's clubs.
-    bikes: ISummaryGear;//SummaryGear 	The athlete's bikes.
-    shoes: ISummaryGear; //SummaryGear 	The athlete's shoes. 
+    clubs ?: ISummaryClub; //SummaryClub 	The athlete's clubs.
+    bikes ?: ISummaryGear;//SummaryGear 	The athlete's bikes.
+    shoes ?: ISummaryGear; //SummaryGear 	The athlete's shoes. 
 }
 
 export interface ISummaryGear {
