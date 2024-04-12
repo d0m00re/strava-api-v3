@@ -1,4 +1,10 @@
 # changelog
+## 0.0.3.1
+* add auth0 function
+* code refacto in smaller api class
+* moore test
+* setter/getter on main class
+
 ## 0.0.3
 * module
 * jest test

@@ -1,8 +1,8 @@
 {
   "name": "strava-api-v3",
   "type": "module",
-  "version": "0.0.3",
-  "description": "learn and create strava wrapper api implementation with ts/fetch",
+  "version": "0.0.3.1",
+  "description": "strava-api-v3 wrapper",
   "main": "dist/src/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
