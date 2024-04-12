@@ -1,5 +1,5 @@
 import * as entity from "../../entity/strava.entity";
-import StravaApi from "./../StravaApi";
+import StravaApi from "./../Strava.api";
 
 interface IGetEffortsBySegmentId {
     segment_id: number;//required Integer, in query 	The identifier of the segment.
