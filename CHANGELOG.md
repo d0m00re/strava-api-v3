@@ -1,5 +1,5 @@
 # changelog
-## 0.0.3.1
+## 0.0.31
 * add auth0 function
 * code refacto in smaller api class
 * moore test
