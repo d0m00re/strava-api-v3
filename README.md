@@ -67,3 +67,12 @@ https://www.strava.com/api/v3/athlete/activities?access_token=access_token_from_
 
 https://www.strava.com/oauth/token?client_id=your_client_id&client_secret=your_client_secret&refresh_token=your_refresh_token_from_previous_step&grant_type=refresh_token
 ```
+
+
+## todo list
+* integration test
+* entity system : some field mismatch between doc and api, for exemple some field missing, or could be null or no present
+* unit test
+* mocking test
+* check upload
+* check stream implementation

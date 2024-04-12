@@ -1,4 +1,3 @@
-import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../StravaApi";
 
 interface IRetrieveAccessTokenWtRefreshToken {
@@ -64,7 +63,6 @@ class StravaAuth0Api {
         return `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&scope=activity:${authToAsk}`;
     }
 
-    //http://localhost/?state=&code=8f8b8d168a7d4e8a4607e5bf88498ce0ace95dfa&scope=read,activity:read_all
     async getTokenFromAuth(authorizationCode: string): Promise<IOutputGetTokenFromAuth> {
         try {
             let url = `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${authorizationCode}&grant_type=authorization_code`;

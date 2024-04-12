@@ -1,7 +1,4 @@
-import * as entity from "./../entity/strava.entity";
 import * as subApi from "./subApi";
-
-
 
 interface IStravaApi {
     accessToken : string;
@@ -45,37 +42,21 @@ class StravaApi {
     }
 
     getBaseUrl = () => this.baseUrl;
+    setBaseUrl = (baseUrl : string) => this.baseUrl = baseUrl;
+
     getClientId= () => this.clientId;
+    setClientId = (clientId : string) => this.clientId = clientId;
+
     getClientSecret = () => this.clientSecret;
+    setClientSecret = (clientSecret : string) => this.clientSecret = clientSecret;
+
     getAccessToken = () => this.accessToken;
+    setAccessToken = (accessToken : string) => this.accessToken = accessToken;
+
     getRefreshToken = () => this.refreshToken;
-    getAuthHeader = () => ({
-        'Authorization': `Bearer ${this.accessToken}`
-    });
+    setRefreshToken = (refreshToken : string) => this.refreshToken = refreshToken;
 
-
-
-    /*
-    async authTest(props : any) {
-        try {
-            let url = `https://www.strava.com/api/v3/oauth/token`;
-
-            const response = await fetch("https://www.strava.com/api/v3/oauth/token", {
-                method : "POST",
-                body : JSON.stringify({
-                    client_id : process.env.STRAVA_CLIENT_ID,
-                    client_secret : process.env.STRAVA_CLIENT_SECRET,
-                    code : process.env.STRAVA_CLIENT_ID,
-                    grant_type : 'authorization_code'
-
-                })
-            })
-        }
-    
-    }
-
-    // auth0 test
-    */
+    getAuthHeader = () => ({'Authorization': `Bearer ${this.accessToken}`});
 }
 
 export default StravaApi;

@@ -139,3 +139,40 @@ export const detailedAthlete : entity.IDetailedAthlete = {
       url: 'xxxxx'
     }
   ];
+
+  const getClubActivitieById : entity.IClubActivity[] = [
+    {
+      resource_state: 2,
+      athlete: { resource_state: 2, firstname: 'Marcos', lastname: 'C.' },
+      name: 'Fé, Esperança e Amor em Deus sempre.',
+      distance: 4314.9,
+      moving_time: 731,
+      elapsed_time: 763,
+      total_elevation_gain: 26.5,
+      type: 'Ride',
+      sport_type: 'MountainBikeRide',
+      workout_type: 11
+    }, {
+      resource_state: 2,
+      athlete: { resource_state: 2, firstname: 'Mathias', lastname: 'C.' },
+      name: "Entraînement dans l'après-midi",
+      distance: 0,
+      moving_time: 1762,
+      elapsed_time: 1762,
+      total_elevation_gain: 0,
+      type: 'Workout',
+      sport_type: 'Workout'
+    },
+    {
+      resource_state: 2,
+      athlete: { resource_state: 2, firstname: 'bernard', lastname: 'S.' },
+      name: 'Course à pied le midi',
+      distance: 12448.3,
+      moving_time: 4166,
+      elapsed_time: 4245,
+      total_elevation_gain: 47.1,
+      type: 'Run',
+      sport_type: 'Run',
+      workout_type: null
+    }
+  ];
