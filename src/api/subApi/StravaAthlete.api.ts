@@ -96,7 +96,7 @@ class StravaAthleteApi {
 */
     async getStats(props: IGetStats): Promise<entity.IActivitiesStats> {
         try {
-            const response = await fetch(`${this.stravaApi.getBaseUrl()}/athlete/${props.id}/stats`, {
+            const response = await fetch(`${this.stravaApi.getBaseUrl()}/athletes/${props.id}/stats`, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
             }).then(resp => resp.json());
@@ -117,9 +117,10 @@ class StravaAthleteApi {
  */
     async updateLoggedInAthlete(props: IUpdateLoggedInAthlete): Promise<entity.IDetailedAthlete> {
         try {
-            const response = await fetch(`${this.stravaApi.getBaseUrl()}/athlete/`, {
+            const url = `${this.stravaApi.getBaseUrl()}/athlete?weight=${props.weight}`;
+            console.log(`url : ${url}`)
+            const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
-                body: JSON.stringify(props),
                 method: "PUT"
             }).then(resp => resp.json());
 

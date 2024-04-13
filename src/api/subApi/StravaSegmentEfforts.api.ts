@@ -3,9 +3,9 @@ import StravaApi from "./../Strava.api";
 
 interface IGetEffortsBySegmentId {
     segment_id: number;//required Integer, in query 	The identifier of the segment.
-    start_date_local: string;//Date, in query 	ISO 8601 formatted date time.
-    end_date_local: string;//Date, in query 	ISO 8601 formatted date time.
-    per_page: number;//Integer, in query 	Number of it
+    start_date_local ?: string;//Date, in query 	ISO 8601 formatted date time.
+    end_date_local ?: string;//Date, in query 	ISO 8601 formatted date time.
+    per_page ?: number;//Integer, in query 	Number of it
 }
 
 interface IGetSegmentEffortById {
@@ -32,7 +32,18 @@ class StravaSegmentEffortsApi {
     */
         async getEffortsBySegmentId(props: IGetEffortsBySegmentId): Promise<entity.IDetailedSegmentEffort[]> {
             try {
-                let url = `${this.stravaApi.getBaseUrl()}/segment_efforts?segment_id=${props.segment_id}&start_date_local=${props.start_date_local}&end_date_local=${props.end_date_local}&per_page=${props.per_page ?? 30}`;
+                let url = `${this.stravaApi.getBaseUrl()}/segment_efforts?segment_id=${props.segment_id}`
+                
+                if (props.start_date_local)
+                    url = `${url}&start_date_local=${props.start_date_local}`;
+                if (props.end_date_local)
+                    url = `${url}&end_date_local=${props.end_date_local}`;
+                if (props.per_page)
+                    url = `${url}&per_page=${props.per_page ?? 30}`;
+                
+                console.log("url")
+                console.log(url)
+                
                 const response = await fetch(url, {
                     headers: this.stravaApi.getAuthHeader(),
                     method: "GET"

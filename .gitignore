@@ -60,11 +60,6 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# Next.js build output
-.next
-out
-
-# Nuxt.js build / generate output
 dist
 
 # Gatsby files

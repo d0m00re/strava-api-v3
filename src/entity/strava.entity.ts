@@ -2,17 +2,17 @@
  * A set of rolled-up statistics and totals for an athlete
  */
 export interface IActivitiesStats {
-    biggest_ride_distance: number;//double 	The longest distance ridden by the athlete.
-    biggest_climb_elevation_gain: number; //double 	The highest climb ridden by the athlete.
-    recent_ride_totals: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) ride stats for the athlete.
-    recent_run_totals: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) run stats for the athlete.
-    recent_swim_totals: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) swim stats for the athlete.
-    ytd_ride_totals: IActivityTotal; //ActivityTotal 	The year to date ride stats for the athlete.
-    ytd_run_totals: IActivityTotal; //ActivityTotal 	The year to date run stats for the athlete.
-    ytd_swim_totals: IActivityTotal; //ActivityTotal 	The year to date swim stats for the athlete.
-    all_ride_totals: IActivityTotal; //ActivityTotal 	The all time ride stats for the athlete.
-    all_run_totals: IActivityTotal; //ActivityTotal 	The all time run stats for the athlete.
-    all_swim_totals: IActivityTotal; //ActivityTotal 	The all time swim stats for the athlet
+    biggest_ride_distance ?: number;//double 	The longest distance ridden by the athlete.
+    biggest_climb_elevation_gain ?: number; //double 	The highest climb ridden by the athlete.
+    recent_ride_totals ?: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) ride stats for the athlete.
+    recent_run_totals ?: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) run stats for the athlete.
+    recent_swim_totals ?: IActivityTotal; //ActivityTotal 	The recent (last 4 weeks) swim stats for the athlete.
+    ytd_ride_totals ?: IActivityTotal; //ActivityTotal 	The year to date ride stats for the athlete.
+    ytd_run_totals ?: IActivityTotal; //ActivityTotal 	The year to date run stats for the athlete.
+    ytd_swim_totals ?: IActivityTotal; //ActivityTotal 	The year to date swim stats for the athlete.
+    all_ride_totals ?: IActivityTotal; //ActivityTotal 	The all time ride stats for the athlete.
+    all_run_totals ?: IActivityTotal; //ActivityTotal 	The all time run stats for the athlete.
+    all_swim_totals ?: IActivityTotal; //ActivityTotal 	The all time swim stats for the athlet
 }
 
 /**
@@ -24,7 +24,7 @@ export interface IActivityTotal {
     moving_time: number;//integer 	The total moving time of the considered activities.
     elapsed_time: number; //integer 	The total elapsed time of the considered activities.
     elevation_gain: number; // float 	The total elevation gain of the considered activities.
-    achievement_count: number; //integer 	The total number of achievements of the considered activities. 
+    achievement_count ?: number; //integer 	The total number of achievements of the considered activities. 
 }
 
 /**
@@ -152,6 +152,11 @@ export interface IHeartRateZoneRanges {
  */
 export interface ILap {
     id: number;//long 	The unique identifier of this lap
+    resource_state ?: number; // np
+    device_watts ?: boolean; // np
+    average_watts ?: number; // np
+    average_heartrate ?: number;// np
+    max_heartrate ?: number; // np
     activity: IMetaActivity; //MetaActivity 	An instance of MetaActivity.
     athlete: IMetaAthlete; //MetaAthlete 	An instance of MetaAthlete.
     average_cadence: number;//float 	The lap's average cadence
@@ -179,13 +184,15 @@ export type TLatLng = [latitude: number, longitude: number];
 
 export interface IMetaActivity {
     id: number;//long 	The unique identifier of the activity
+    visibility ?: string | 'everyone';
+    resource_state ?: number;
 }
 
 export interface IMetaAthlete {
     id ?: number; //long The unique identifier of the athlete 
-    resource_state : number; // not in doc
-    firstname : string; // not in doc
-    lastname : string; // not in doc
+    resource_state ?: number; // not in doc
+    firstname ?: string; // not in doc
+    lastname ?: string; // not in doc
 }
 
 export interface IMetaClub {
@@ -228,7 +235,8 @@ export interface IPhotosSummaryPrimary {
 export interface IPolylineMap {
     id: string;//string 	The identifier of the map
     polyline: string; // string 	The polyline of the map, only returned on detailed representation of an object
-    summary_polyline: string; // string The summary polyline of the map  	
+    summary_polyline ?: string; // string The summary polyline of the map  	
+    resource_state ?: number;
 }
 
 export interface IPowerZoneRanges {
@@ -270,32 +278,43 @@ type TSportType = 'AlpineSki' | 'BackcountrySki' | 'Badminton' | 'Canoeing' | 'C
 
 export interface ISummarySegment {
     id: number;//long 	The unique identifier of this segment
+    resource_state ?: number; // np
+    elevation_profile ?: null | any; // np
+    hazardous ?: boolean; // np
+    starred ?: boolean; // np
     name: string;//string 	The name of this segment
-    activity_type: string; //string 	May take one of the following values: Ride, Run
-    distance: number;//float 	The segment's distance, in meters
-    average_grade: number;//float 	The segment's average grade, in percents
-    maximum_grade: number; //float 	The segments's maximum grade, in percents
-    elevation_high: number;//float 	The segments's highest elevation, in meters
-    elevation_low: number; //float 	The segments's lowest elevation, in meters
-    start_latlng: TLatLng; //LatLng 	An instance of LatLng.
-    end_latlng: TLatLng; //LatLng 	An instance of LatLng.
-    climb_category: number;// integer 	The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category.
-    city: string;//string 	The segments's city.
-    state: string;//string 	The segments's state or geographical region.
-    country: string;//string 	The segment's country.
-    private: boolean;//boolean 	Whether this segment is private.
-    athlete_pr_effort: ISummaryPRSegmentEffort; // SummaryPRSegmentEffort 	An instance of SummaryPRSegmentEffort.
-    athlete_segment_stats: ISummarySegmentEffort; //SummarySegmentEffort 	An instance of SummarySegmentEffort. 
+    activity_type ?: string; //string 	May take one of the following values: Ride, Run
+    distance ?: number;//float 	The segment's distance, in meters
+    average_grade ?: number;//float 	The segment's average grade, in percents
+    maximum_grade ?: number; //float 	The segments's maximum grade, in percents
+    elevation_high ?: number;//float 	The segments's highest elevation, in meters
+    elevation_low ?: number; //float 	The segments's lowest elevation, in meters
+    start_latlng ?: TLatLng; //LatLng 	An instance of LatLng.
+    end_latlng ?: TLatLng; //LatLng 	An instance of LatLng.
+    climb_category ?: number;// integer 	The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category.
+    city ?: string;//string 	The segments's city.
+    state ?: string;//string 	The segments's state or geographical region.
+    country ?: string;//string 	The segment's country.
+    private ?: boolean;//boolean 	Whether this segment is private.
+    athlete_pr_effort ?: ISummaryPRSegmentEffort; // SummaryPRSegmentEffort 	An instance of SummaryPRSegmentEffort.
+    athlete_segment_stats ?: ISummarySegmentEffort; //SummarySegmentEffort 	An instance of SummarySegmentEffort. 
 }
 
 export interface ISummarySegmentEffort {
-    id: number;//long 	The unique identifier of this effort
-    activity_id: number;//long 	The unique identifier of the activity related to this effort
-    elapsed_time: number;//integer 	The effort's elapsed time
-    start_date: string; //DateTime 	The time at which the effort was started.
-    start_date_local: string; //DateTime 	The time at which the effort was started in the local timezone.
-    distance: number;//float 	The effort's distance in meters
-    is_kom: boolean; //boolean 	 Whether this effort is the current best on the leaderboard 
+    id ?: number;//long 	The unique identifier of this effort
+    activity_id ?: number;//long 	The unique identifier of the activity related to this effort
+    elapsed_time ?: number;//integer 	The effort's elapsed time
+    start_date ?: string; //DateTime 	The time at which the effort was started.
+    start_date_local ?: string; //DateTime 	The time at which the effort was started in the local timezone.
+    distance ?: number;//float 	The effort's distance in meters
+    is_kom ?: boolean; //boolean 	 Whether this effort is the current best on the leaderboard 
+
+    pr_elapsed_time ?: number;
+    pr_date ?: string;
+    pr_visibility ?: string;
+    pr_activity_id ?: number;
+    pr_activity_visibility ?: string;
+    effort_count ?: number;
 }
 
 //A collection of #/TimedZoneRange objects. Stores the exclusive ranges representing zones and the time spent in each.
@@ -339,7 +358,7 @@ export type IZoneRanges = IZoneRange[];
 
 export interface IZone {
     heart_rate: IHeartRateZoneRanges;//HeartRateZoneRanges 	An instance of HeartRateZoneRanges.
-    power: IPowerZoneRanges;//PowerZoneRanges 	An insta
+    power ?: IPowerZoneRanges;//PowerZoneRanges 	An insta
 }
 
 export interface IAltitudeStream {
@@ -370,6 +389,9 @@ export interface IDetailedGear {
 
 export interface IDetailedSegment {
     id: number;//long 	The unique identifier of this segment
+    resource_state ?: number; // nd
+    elevation_profile ?: string; // nd
+    starred ?: boolean; // nd
     name: string;//string 	The name of this segment
     activity_type: string;//string 	May take one of the following values: Ride, Run
     distance: number;//float 	The segment's distance, in meters
@@ -384,7 +406,7 @@ export interface IDetailedSegment {
     state: string; //string 	The segments's state or geographical region.
     country: string; //string 	The segment's country.
     private: boolean; //boolean 	Whether this segment is private.
-    athlete_pr_effort: ISummaryPRSegmentEffort; //SummaryPRSegmentEffort 	An instance of SummaryPRSegmentEffort.
+    athlete_pr_effort ?: ISummaryPRSegmentEffort; //SummaryPRSegmentEffort 	An instance of SummaryPRSegmentEffort.
     athlete_segment_stats: ISummarySegmentEffort; //SummarySegmentEffort 	An instance of SummarySegmentEffort.
     created_at: string; //DateTime 	The time at which the segment was created.
     updated_at: string; //DateTime 	The time at which the segment was last updated.
@@ -394,31 +416,55 @@ export interface IDetailedSegment {
     athlete_count: number; //integer 	The number of unique athletes who have an effort for this segment
     hazardous: boolean;//boolean 	Whether this segment is considered hazardous
     star_count: number; //integer 	The number of stars for this segment 
+
+    xoms ?: {
+        kom ?: string;
+        qom ?: string;
+        overall ?: string;
+        destination ?: {
+            href ?: string;
+            type ?: string;
+            name ?: string;
+        }
+    },
+
+    local_legend ?: {
+        athlete_id ?: number;
+        title?: string;
+        profile?: string;
+        effort_description?: string,
+        effort_count?: string,
+        effort_counts?: { overall ?: string, female ?: string },
+        destination?: string;
+    }
 }
 
 export interface IDetailedSegmentEffort {
     id: number; //long 	The unique identifier of this effort
-    activity_id: number;//long 	The unique identifier of the activity related to this effort
-    elapsed_time: number;//integer 	The effort's elapsed time
-    start_date: string; //DateTime 	The time at which the effort was started.
-    start_date_local: string;//DateTime 	The time at which the effort was started in the local timezone.
-    distance: number;//float 	The effort's distance in meters
-    is_kom: boolean;//boolean 	Whether this effort is the current best on the leaderboard
-    name: string; //string 	The name of the segment on which this effort was performed
-    activity: IMetaActivity;//MetaActivity 	An instance of MetaActivity.
-    athlete: IMetaAthlete; //MetaAthlete 	An instance of MetaAthlete.
-    moving_time: number;//integer 	The effort's moving time
-    start_index: number;//integer 	The start index of this effort in its activity's stream
-    end_index: number;//integer 	The end index of this effort in its activity's stream
-    average_cadence: number;//float 	The effort's average cadence
-    average_watts: number;//float 	The average wattage of this effort
-    device_watts: boolean;//boolean 	For riding efforts, whether the wattage was reported by a dedicated recording device
-    average_heartrate: number;//float 	The heart heart rate of the athlete during this effort
-    max_heartrate: number;//float 	The maximum heart rate of the athlete during this effort
-    segment: ISummarySegment; //SummarySegment 	An instance of SummarySegment.
-    kom_rank: number;//integer 	The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload
-    pr_rank: number;//integer 	The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload
-    hidden: boolean;//boolean 	Whether this effort should be hidden when viewed within an activity 
+    resource_state ?: number;
+    activity_id ?: number;//long 	The unique identifier of the activity related to this effort
+    elapsed_time ?: number;//integer 	The effort's elapsed time
+    start_date ?: string; //DateTime 	The time at which the effort was started.
+    start_date_local ?: string;//DateTime 	The time at which the effort was started in the local timezone.
+    distance ?: number;//float 	The effort's distance in meters
+    is_kom ?: boolean;//boolean 	Whether this effort is the current best on the leaderboard
+    name ?: string; //string 	The name of the segment on which this effort was performed
+    activity ?: IMetaActivity;//MetaActivity 	An instance of MetaActivity.
+    athlete ?: IMetaAthlete; //MetaAthlete 	An instance of MetaAthlete.
+    moving_time ?: number;//integer 	The effort's moving time
+    start_index ?: number;//integer 	The start index of this effort in its activity's stream
+    end_index ?: number;//integer 	The end index of this effort in its activity's stream
+    average_cadence ?: number;//float 	The effort's average cadence
+    average_watts ?: number;//float 	The average wattage of this effort
+    device_watts ?: boolean;//boolean 	For riding efforts, whether the wattage was reported by a dedicated recording device
+    average_heartrate ?: number;//float 	The heart heart rate of the athlete during this effort
+    max_heartrate ?: number;//float 	The maximum heart rate of the athlete during this effort
+    segment ?: ISummarySegment; //SummarySegment 	An instance of SummarySegment.
+    kom_rank ?: number | null;//integer 	The rank of the effort on the global leaderboard if it belongs in the top 10 at the time of upload
+    pr_rank ?: number;//integer 	The rank of the effort on the athlete's leaderboard if it belongs in the top 3 at the time of upload
+    hidden ?: boolean;//boolean 	Whether this effort should be hidden when viewed within an activity 
+    achievements ?: any;
+    visibility ?: any;
 }
 
 export interface IDistanceStream {
@@ -732,6 +778,12 @@ export interface ISummaryGear {
 
 export interface IComment {
     id: number;//long 	The unique identifier of this comment
+    post_id ?: null | number; // np
+    resource_state ?: number; // np
+    mentions_metadata ?: null | string; // np
+    cursor ?: null | string; // np
+    reaction_count ?: null | number; // np
+    has_reacted ?: boolean | null;
     activity_id: number;//long 	The identifier of the activity this comment is related to
     text: string; //string 	The content of the comment
     athlete: ISummaryAthlete; //SummaryAthlete 	An instance of SummaryAthlete.

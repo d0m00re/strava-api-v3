@@ -50,8 +50,9 @@ interface IOutputGetTokenFromAuth {
     activity:read_all: the same access as activity:read, plus privacy zone data and access to read the user's activities with visibility set to Only You
     activity:write: access to create manual activities and uploads, and access to edit any activities that are visible to the app, based on activity read access level
  */
-type TAuthorization = "read" | "read_all" | "profile:read_all" | "profile:write" | "activity:read" | "activity:read_all" | "activity:write";
-
+type TAuthorization = "read" | "read_all" | "profile:read_all" | "profile:write" | "activity:read" | "activity:read_all" | "activity:write" | "t_allAuth";
+//scope=read,activity:write
+const allAuth = `read,read_all,profile:read_all,profile:write,activity:read,activity:read_all,activity:write`;
 
 class StravaAuth0Api {
     stravaApi: StravaApi;
@@ -59,8 +60,9 @@ class StravaAuth0Api {
         this.stravaApi = stravaApi;
     }
 
-    getAskAuthUrl(authToAsk : TAuthorization) {
-        return `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&scope=activity:${authToAsk}`;
+    getAskAuthUrl(authToAsk : TAuthorization | string) {
+        let scope = (authToAsk === "t_allAuth") ? allAuth : authToAsk;
+        return `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&scope=${scope}`;
     }
 
     async getTokenFromAuth(authorizationCode: string): Promise<IOutputGetTokenFromAuth> {

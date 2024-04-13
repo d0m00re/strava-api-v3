@@ -9,7 +9,7 @@ describe('auth0', () => {
             clientSecret : process.env.STRAVA_CLIENT_SECRET ?? ""
         });
 
-        let urlAuth = ApiStrava.auth0.getAskAuthUrl("read_all");
+        let urlAuth = ApiStrava.auth0.getAskAuthUrl("t_allAuth");
         console.log("strava url auth for grant auth")
         console.log(urlAuth);
         expect(urlAuth.length).toBeGreaterThan(10);

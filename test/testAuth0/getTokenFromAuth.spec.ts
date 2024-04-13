@@ -10,7 +10,7 @@ describe('auth0', () => {
         });
 
         // get it form getAsk....
-        let newTokens = await ApiStrava.auth0.getTokenFromAuth("...");
+        let newTokens = await ApiStrava.auth0.getTokenFromAuth(process.env.STRAVA_AUTH_CODE ?? "");
         console.log("strava url auth for grant auth")
         console.log(newTokens);
         expect(10).toBe(10);

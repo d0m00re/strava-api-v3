@@ -1,6 +1,4 @@
-import Strava from "./../../src/api/StravaApi";
-
-
+import Strava from "./../../src/api/Strava.api";
 
 describe("Strava Api", () => {
     test("base get/set test", () => {

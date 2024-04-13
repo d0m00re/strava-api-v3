@@ -21,7 +21,7 @@ interface IGetActivityById {
 interface IGetActivityComments {
     id: number;
     page_size?: number;
-    after_cursor: string;
+    after_cursor ?: string;
 }
 
 interface IGetKudoersByActivityId {
@@ -106,12 +106,18 @@ class StravaActivityApi {
 
         try {
             let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/comments`;
-            url = `${url}?page_size=${props.page_size ?? 30}&after_cursor=${props.after_cursor}`;
+            url = `${url}?page_size=${props.page_size ?? 30}`;
+            if (props.after_cursor)
+                url = `${url}&after_cursor=${props.after_cursor}`;
 
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
-            }).then(resp => resp.json());
+            }).then(resp => {
+                console.log("resp")
+                console.log(resp)
+                return resp.json()                
+            });
 
             return response
         } catch (error) {

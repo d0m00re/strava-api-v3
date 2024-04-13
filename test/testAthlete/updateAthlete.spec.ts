@@ -1,17 +1,24 @@
 import * as strava from "./../../src/";
-
-describe('getLoggedInAthletesZones', () => {
-    test('firstname', async () => {
+/*
+    accessToken : string;
+    clientId : string;
+    clientSecret : string;
+    refreshToken ?: string;
+*/
+describe('updateAthlete', () => {
+    test('change weight', async () => {
         const ApiStrava = new strava.Strava({
             accessToken : process.env.STRAVA_ACCESS_TOKEN ?? "",
             refreshToken : process.env.STRAVA_REFRESH_TOKEN ?? "",
             clientId : process.env.STRAVA_CLIENT_ID ?? "",
             clientSecret : process.env.STRAVA_CLIENT_SECRET ?? ""
         });
-        let data = await ApiStrava.athlete.getLoggedInAthleteZones()
+
+
+
+        let data = await ApiStrava.athlete.updateLoggedInAthlete({weight : 74.9})
         console.log("resp")
         console.log(data)
-        expect(typeof(data.heart_rate.custom_zones)).toBe("boolean");
-        expect(data.heart_rate.zones.length).toBeGreaterThan(0);
+        expect(data.weight).toBe(74.9);
     });
 });
