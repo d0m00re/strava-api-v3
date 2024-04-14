@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IExploreSegments {
-    bounds: number[];//required array[Float], in query 	The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
+    bounds: string;//required array[Float], in query 	The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
     activity_type?: string;//String, in query 	Desired activity type. May take one of the following values: running, riding
     min_cat?: number;//Integer, in query 	The minimum climbing category.
     max_cat?: number;//Integer, in query 	 The maximum climbing category. 
 }
 
 interface IGetLoggedInAthleteStarredSegments {
-    page: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page: number;//Integer, in query 	Number of items per page. Defaults to 30. 
+    page ?: number;//Integer, in query 	Page number. Defaults to 1.
+    per_page ?: number;//Integer, in query 	Number of items per page. Defaults to 30. 
 }
 
 interface IGetSegmentById {
@@ -44,7 +44,7 @@ class StravaSegmentApi {
      */
     async exploreSegments(props: IExploreSegments): Promise<entity.IExplorerResponse> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/explore?bounds=${JSON.stringify(props.bounds)}`;
+            let url = `${this.stravaApi.getBaseUrl()}/segments/explore?bounds=${props.bounds}`;
             if (props.activity_type) url = `${url}&activity_type=${props.activity_type}`;
             if (props.min_cat) url = `${url}&min_cat=${props.min_cat}`;
             if (props.max_cat) url = `${url}&max_cat=${props.max_cat}`;
@@ -65,9 +65,9 @@ class StravaSegmentApi {
      *  List Starred Segments (getLoggedInAthleteStarredSegments)
      * List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope.
      */
-    async getLoggedInAthleteStarredSegments(props: IGetLoggedInAthleteStarredSegments): Promise<entity.ISummarySegment[]> {
+    async getLoggedInAthleteStarredSegments(props ?: IGetLoggedInAthleteStarredSegments): Promise<entity.ISummarySegment[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/starred?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            let url = `${this.stravaApi.getBaseUrl()}/segments/starred?page=${props?.page ?? 1}&per_page=${props?.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -105,11 +105,9 @@ class StravaSegmentApi {
      */
     async starSegment(props: IStarSegment): Promise<entity.IDetailedSegment> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}/starred?`;
-            let body = JSON.stringify({ starred: (props.starred) ? "true" : "false" });
+            let url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}/starred?starred=${(props.starred ? "true" : "false")}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
-                body: body,
                 method: "PUT"
             }).then(resp => resp.json());
 

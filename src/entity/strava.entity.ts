@@ -56,10 +56,18 @@ export interface ISummaryGear {
 }
 
 export interface ISummaryPRSegmentEffort {
-    pr_activity_id: number;//long 	The unique identifier of the activity related to the PR effort.
-    pr_elapsed_time: number;//integer 	The elapsed time ot the PR effort.
-    pr_date: string; //DateTime 	The time at which the PR effort was started.
-    effort_count: number;//integer 	Number of efforts by the authenticated athlete on this segment. 
+    id ?: number; // np
+    activity_id  ?: number;//np
+    elapsed_time ?: number;
+    distance ?: number;//np
+    start_date ?: string;//np
+    start_date_local ?: string; //np
+    is_kom ?: boolean; // np
+
+    pr_activity_id ?: number;//long 	The unique identifier of the activity related to the PR effort.
+    pr_elapsed_time ?: number;//integer 	The elapsed time ot the PR effort.
+    pr_date ?: string; //DateTime 	The time at which the PR effort was started.
+    effort_count ?: number;//integer 	Number of efforts by the authenticated athlete on this segment. 
 }
 
 
@@ -203,11 +211,15 @@ export interface IMetaClub {
 
 // todo : check set of segments
 export interface IExplorerResponse {
-    segments: IExplorerSegment;// //ExplorerSegment 	The set of segments matching an explorer request 
+    segments: IExplorerSegment[];// //ExplorerSegment 	The set of segments matching an explorer request 
 }
 
 export interface IExplorerSegment {
     id: number;//long 	The unique identifier of this segment
+    resource_state ?: number; // np
+    starred ?: boolean; // np
+    elevation_profile ?: string; // np
+    local_legend_enabled ?: boolean; // np
     name: string;//string 	The name of this segment
     climb_category: number;//integer 	The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category. If climb_category = 5, climb_category_desc = HC. If climb_category = 2, climb_category_desc = 3.
     climb_category_desc: string;//string 	The description for the category of the climb May take one of the following values: NC, 4, 3, 2, 1, HC
@@ -298,6 +310,8 @@ export interface ISummarySegment {
     private ?: boolean;//boolean 	Whether this segment is private.
     athlete_pr_effort ?: ISummaryPRSegmentEffort; // SummaryPRSegmentEffort 	An instance of SummaryPRSegmentEffort.
     athlete_segment_stats ?: ISummarySegmentEffort; //SummarySegmentEffort 	An instance of SummarySegmentEffort. 
+    pr_time ?: number;
+    starred_date ?: string;
 }
 
 export interface ISummarySegmentEffort {
@@ -390,7 +404,7 @@ export interface IDetailedGear {
 export interface IDetailedSegment {
     id: number;//long 	The unique identifier of this segment
     resource_state ?: number; // nd
-    elevation_profile ?: string; // nd
+    elevation_profile ?: string | null; // nd
     starred ?: boolean; // nd
     name: string;//string 	The name of this segment
     activity_type: string;//string 	May take one of the following values: Ride, Run
@@ -416,7 +430,7 @@ export interface IDetailedSegment {
     athlete_count: number; //integer 	The number of unique athletes who have an effort for this segment
     hazardous: boolean;//boolean 	Whether this segment is considered hazardous
     star_count: number; //integer 	The number of stars for this segment 
-
+    pr_time ?: number;
     xoms ?: {
         kom ?: string;
         qom ?: string;
