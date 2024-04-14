@@ -257,12 +257,14 @@ export interface IPowerZoneRanges {
 
 export interface IRoute {
     athlete: ISummaryAthlete; //SummaryAthlete 	An instance of SummaryAthlete.
-    description: string;//string 	The description of the route
+    description: string | null;//string 	The description of the route
     distance: number;//float 	The route's distance, in meters
     elevation_gain: number; //float 	The route's elevation gain.
     id: number;//long 	The unique identifier of this route
     id_str: string;//string 	The unique identifier of the route in string format
     map: IPolylineMap; //PolylineMap 	An instance of PolylineMap.
+    map_urls ?: {url : string, retina_url : string} // nd
+    resource_state ?: number;// nd
     name: string; //string 	The name of this route
     private: boolean; //boolean 	Whether this route is private
     starred: boolean;//boolean 	Whether this route is starred by the logged-in athlete
@@ -272,8 +274,8 @@ export interface IRoute {
     created_at: string;//DateTime 	The time at which the route was created
     updated_at: string; //DateTime 	The time at which the route was last updated
     estimated_moving_time: number; //integer 	Estimated time in seconds for the authenticated athlete to complete route
-    segments: ISummarySegment; //SummarySegment 	The segments traversed by this route
-    waypoints: IWaypoint;//Waypoint 	The custom waypoints along this route 
+    segments: ISummarySegment[]; //SummarySegment 	The segments traversed by this route
+    waypoints: IWaypoint[];//Waypoint 	The custom waypoints along this route 
 }
 
 export interface ISplit {
@@ -577,14 +579,20 @@ export interface ISummaryActivity {
 
 export interface ISummaryAthlete {
     id ?: number;//long 	The unique identifier of the athlete
+    username ?: null | string;
+    bio ?: null | string; // nd
+    badge_type_id ?: number; // np
+    weight ?: number; // nd
+    friend ?: null | any; // nd
+    follower ?: null | any; // nd
     resource_state: number;//integer 	Resource state, indicates level of detail. Possible values: 1 -> "meta", 2 -> "summary", 3 -> "detail"
     firstname: string;//string 	The athlete's first name.
     lastname: string; //string 	The athlete's last name.
     profile_medium ?: string;//string 	URL to a 62x62 pixel profile picture.
     profile ?: string; //string 	URL to a 124x124 pixel profile picture.
-    city ?: string;//string 	The athlete's city.
-    state ?: string; //string 	The athlete's state or geographical region.
-    country ?: string;//string 	The athlete's country.
+    city ?: string | null;//string 	The athlete's city.
+    state ?: string | null; //string 	The athlete's state or geographical region.
+    country ?: string | null;//string 	The athlete's country.
     sex ?: "M" | "F"; //string 	The athlete's sex. May take one of the following values: M, F
     premium ?: boolean;//boolean 	Deprecated. Use summit field instead. Whether the athlete has any Summit subscription.
     summit ?: boolean;//boolean 	Whether the athlete has any Summit subscription.

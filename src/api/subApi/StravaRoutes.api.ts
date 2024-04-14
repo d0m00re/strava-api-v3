@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetRouteAsGPX {
-    id: number;//required Long, in path 	The iden
+    id: string;//required Long, in path 	The iden
 }
 
 interface IGetRouteAsTCX {
-    id: number;//required Long, in path 	The identifier of the route. 
+    id: string;//required Long, in path 	The identifier of the route. 
 }
 
 interface IGetRouteById {
-    id: number;//required Long, in path 	The ident
+    id: string;//required Long, in path 	The ident
 }
 
 interface IGetRouteStreams {
@@ -29,13 +29,17 @@ class StravaRoutesApi {
     * Returns a GPX file of the route. Requires read_all scope for private routes.
     * @return gpx file ??? 
     */
-    async getRouteAsGPX(props: IGetRouteAsGPX): Promise<any> {
+    async getRouteAsGPX(props: IGetRouteAsGPX): Promise<string> {
         try {
             let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_gpx`;
+            console.log("url")
+            console.log(url)
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
-            }).then(resp => resp.json());
+            }).then(resp => {
+                //console.log(await resp.text())
+                return resp.text();});
 
             return response
         } catch (error) {
@@ -48,13 +52,18 @@ class StravaRoutesApi {
      * Export Route TCX (getRouteAsTCX)
      * Returns a TCX file of the route. Requires read_all scope for private routes.
      */
-    async getRouteAsTCX(props: IGetRouteAsTCX): Promise<any> {
+    async getRouteAsTCX(props: IGetRouteAsTCX): Promise<string> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}}/routes/${props.id}/export_tsx`;
+            let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_tcx`;
+            console.log(url)
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
-            }).then(resp => resp.json());
+            }).then(resp => {
+                console.log("wtf")
+                console.log(resp);
+                return resp.text()
+            });
 
             return response
         } catch (error) {
@@ -69,7 +78,7 @@ class StravaRoutesApi {
      */
     async getRouteById(props: IGetRouteById): Promise<entity.IRoute> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}}/routes/${props.id}`;
+            let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
