@@ -1,10 +1,5 @@
 import * as strava from "./../../src/";
-/*
-    accessToken : string;
-    clientId : string;
-    clientSecret : string;
-    refreshToken ?: string;
-*/
+
 describe('getAthleteStats', () => {
     test('base', async () => {
         const ApiStrava = new strava.Strava({
@@ -14,10 +9,9 @@ describe('getAthleteStats', () => {
             clientSecret : process.env.STRAVA_CLIENT_SECRET ?? ""
         });
 
-        let userId = parseInt(process.env.STRAVA_USER_ID ?? "0");
-        console.log("check for user id : ", userId)
+        const userId = parseInt(process.env.STRAVA_USER_ID ?? "0");
 
-        let data = await ApiStrava.athlete.getStats({id : userId})
+        const data = await ApiStrava.athlete.getStats({id : userId})
         console.log("resp")
         console.log(data)
         expect(data.all_run_totals?.count).toBeGreaterThanOrEqual(83)

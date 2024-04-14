@@ -21,7 +21,7 @@ interface IGetActivityById {
 interface IGetActivityComments {
     id: number;
     page_size?: number;
-    after_cursor ?: string;
+    after_cursor?: string;
 }
 
 interface IGetKudoersByActivityId {
@@ -117,7 +117,7 @@ class StravaActivityApi {
             }).then(resp => {
                 console.log("resp")
                 console.log(resp)
-                return resp.json()                
+                return resp.json()
             });
 
             return response

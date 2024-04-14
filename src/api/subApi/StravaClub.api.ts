@@ -18,7 +18,7 @@ interface IGetClubById {
 }
 
 interface IGetClubMembersById {
-    id: number;//required Long, in path 	The identifier of the club.
+    id: number | string;//required Long, in path 	The identifier of the club.
     page?: number;//Integer, in query 	Page number. Defaults to 1.
     per_page?: number;//Integer, in query 	Number of items per page. Defaults to 30. 
 }
@@ -32,7 +32,7 @@ class StravaClubApi {
 
     async getClubActivitiesById(props: IGetClubActivitiesById): Promise<entity.IClubActivity[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/activities?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/activities?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -52,7 +52,7 @@ class StravaClubApi {
      */
     async getClubAdminsById(props: IGetClubAdminsById): Promise<entity.ISummaryAthlete[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/admins?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/admins?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -67,7 +67,7 @@ class StravaClubApi {
 
     async getClubById(props: IGetClubById): Promise<entity.IDetailedClub> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}`;
+            const url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -84,7 +84,7 @@ class StravaClubApi {
      */
     async getClubMembersById(props: IGetClubMembersById): Promise<entity.IClubAthlete[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/members?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/clubs/${props.id}/members?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"

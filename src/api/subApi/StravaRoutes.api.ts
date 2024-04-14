@@ -31,14 +31,12 @@ class StravaRoutesApi {
     */
     async getRouteAsGPX(props: IGetRouteAsGPX): Promise<string> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_gpx`;
+            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_gpx`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
             }).then(resp => {
-                //console.log(await resp.text())
                 return resp.text();});
-
             return response
         } catch (error) {
             console.error('Error fetching athlete profile:', error);
@@ -52,8 +50,7 @@ class StravaRoutesApi {
      */
     async getRouteAsTCX(props: IGetRouteAsTCX): Promise<string> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_tcx`;
-            console.log(url)
+            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_tcx`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -74,7 +71,7 @@ class StravaRoutesApi {
      */
     async getRouteById(props: IGetRouteById): Promise<entity.IRoute> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}`;
+            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -87,13 +84,13 @@ class StravaRoutesApi {
         }
     }
 
-        /**
+    /**
      * Get Route Streams (getRouteStreams)
      * Returns the given route's streams. Requires read_all scope for private routes.
      */
         async getRouteStreams(props: IGetRouteStreams): Promise<entity.IStreamRouteSetCorrect[]> {
             try {
-                let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/streams`;
+                const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/streams`;
                 const response = await fetch(url, {
                     headers: this.stravaApi.getAuthHeader(),
                     method: "GET"

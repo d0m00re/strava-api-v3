@@ -37,10 +37,6 @@ class StravaSegmentApi {
         this.stravaApi = stravaApi;
     }
 
-  
-
-    // =========================== SEGMENT
-
     /**
      * Explore segments (exploreSegments)
     * Returns the top 10 segments matching a specified query.
@@ -70,7 +66,7 @@ class StravaSegmentApi {
      */
     async getLoggedInAthleteStarredSegments(props ?: IGetLoggedInAthleteStarredSegments): Promise<entity.ISummarySegment[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/starred?page=${props?.page ?? 1}&per_page=${props?.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/segments/starred?page=${props?.page ?? 1}&per_page=${props?.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -89,7 +85,7 @@ class StravaSegmentApi {
      */
     async getSegmentById(props: IGetSegmentById): Promise<entity.IDetailedSegment> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}`;
+            const url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -108,7 +104,7 @@ class StravaSegmentApi {
      */
     async starSegment(props: IStarSegment): Promise<entity.IDetailedSegment> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}/starred?starred=${(props.starred ? "true" : "false")}`;
+            const url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}/starred?starred=${(props.starred ? "true" : "false")}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "PUT"
@@ -121,7 +117,7 @@ class StravaSegmentApi {
         }
     }
 
-        /**
+    /**
      * Get Segment Streams (getSegmentStreams)
      * Returns the given segment's streams. Requires read_all scope for private segments.
      */

@@ -15,14 +15,11 @@ interface IGetUploadById {
     uploadId: number;//required Long, in path 	The identifier of the upload. 
 }
 
-
 class StravaUploadApi {
-    stravaApi : StravaApi;
-    constructor (stravaApi : StravaApi) {
+    stravaApi: StravaApi;
+    constructor(stravaApi: StravaApi) {
         this.stravaApi = stravaApi;
     }
-
-     // =========================== uploads
 
     /**
      * Upload Activity (createUpload)
@@ -30,7 +27,7 @@ class StravaUploadApi {
      */
     async createUpload(props: ICreateUpload): Promise<entity.IUpload> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/uploads`;
+            const url = `${this.stravaApi.getBaseUrl()}/uploads`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "POST",
@@ -49,7 +46,7 @@ class StravaUploadApi {
      */
     async getUploadById(props: IGetUploadById): Promise<entity.IUpload> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/uploads/${props.uploadId}`;
+            const url = `${this.stravaApi.getBaseUrl()}/uploads/${props.uploadId}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -61,6 +58,6 @@ class StravaUploadApi {
             throw error;
         }
     }
-    
+
 }
 export default StravaUploadApi;

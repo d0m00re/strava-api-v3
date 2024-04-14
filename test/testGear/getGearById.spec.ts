@@ -1,3 +1,4 @@
+// todo : invalid gear id 
 import * as strava from "./../../src/";
 
 const ApiStrava = new strava.Strava({
@@ -7,11 +8,10 @@ const ApiStrava = new strava.Strava({
     clientSecret: process.env.STRAVA_CLIENT_SECRET ?? ""
 });
 
-describe('getRouteById', () => {
-    test('test', async () => {
-        const data = await ApiStrava.route.getRouteById({ id: "3175080533840625586" })
-        console.log("data")
+describe('getGearById', () => {
+    test('gear b1231', async () => {
+        const data = await ApiStrava.gear.getGearById({ id: process.env.STRAVA_GEAR_ID ?? "" })
         console.log(data)
-        expect(data.name).toEqual("plages et chemins")
+        expect(data.brand_name).toBe("BMC")
     });
 });

@@ -49,7 +49,6 @@ class StravaAthleteApi {
         }
     }
 
-    //--------------------------------------- ATHLETE
     /**
      * Get Authenticated Athlete (getLoggedInAthlete)
      * Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
@@ -88,12 +87,12 @@ class StravaAthleteApi {
     }
 
     /**
-* 
-* @param props 
-* Get Athlete Stats (getStats)
-* Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty.
-* @returns 
-*/
+    * 
+    * @param props 
+    * Get Athlete Stats (getStats)
+    * Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty.
+    * @returns 
+    */
     async getStats(props: IGetStats): Promise<entity.IActivitiesStats> {
         try {
             const response = await fetch(`${this.stravaApi.getBaseUrl()}/athletes/${props.id}/stats`, {
@@ -109,16 +108,14 @@ class StravaAthleteApi {
     }
 
     /**
- * 
-* Update Athlete (updateLoggedInAthlete)
-* Update the currently authenticated athlete. Requires profile:write scope.
- * @param props 
- * @returns 
- */
+    * Update Athlete (updateLoggedInAthlete)
+    * Update the currently authenticated athlete. Requires profile:write scope.
+    * @param props 
+    * @returns 
+    */
     async updateLoggedInAthlete(props: IUpdateLoggedInAthlete): Promise<entity.IDetailedAthlete> {
         try {
             const url = `${this.stravaApi.getBaseUrl()}/athlete?weight=${props.weight}`;
-            console.log(`url : ${url}`)
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "PUT"
@@ -136,7 +133,7 @@ class StravaAthleteApi {
 */
     async getLoggedInAthleteClubs(props: IGetLoggedInAthleteClubs): Promise<entity.ISummaryClub[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/athlete/clubs?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/athlete/clubs?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -155,7 +152,7 @@ class StravaAthleteApi {
  */
     async getRoutesByAthleteId(props: IGetRoutesByAthleteId): Promise<entity.IRoute[]> {
         try {
-            let url = `${this.stravaApi.getBaseUrl()}/athletes/${props.id}/routes?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            const url = `${this.stravaApi.getBaseUrl()}/athletes/${props.id}/routes?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"

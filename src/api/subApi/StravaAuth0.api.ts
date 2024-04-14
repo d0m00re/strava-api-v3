@@ -1,3 +1,4 @@
+// todo : rework naming
 import StravaApi from "./../Strava.api";
 
 interface IRetrieveAccessTokenWtRefreshToken {
@@ -61,13 +62,13 @@ class StravaAuth0Api {
     }
 
     getAskAuthUrl(authToAsk : TAuthorization | string) {
-        let scope = (authToAsk === "t_allAuth") ? allAuth : authToAsk;
+        const scope = (authToAsk === "t_allAuth") ? allAuth : authToAsk;
         return `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&scope=${scope}`;
     }
 
     async getTokenFromAuth(authorizationCode: string): Promise<IOutputGetTokenFromAuth> {
         try {
-            let url = `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${authorizationCode}&grant_type=authorization_code`;
+            const url = `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${authorizationCode}&grant_type=authorization_code`;
             
             // require post request - retrieve new access and refresh token from strava api
             const resp = await fetch(url, {method : "POST"}).then(resp => resp.json());
