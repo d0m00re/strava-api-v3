@@ -43,9 +43,10 @@ interface IUpdateActivityById {
     body: entity.IUpdatableActivity
 }
 
+
 interface IGetActivityStreams {
-    id: number; //required Long, in path 	The identifier of the activity.
-    keys: string[]; //required array[String], in query 	Desired stream types. May take one of the following values:
+    id: number | string; //required Long, in path 	The identifier of the activity.
+    keys: entity.TKeysPossibleType[]; //required array[String], in query 	Desired stream types. May take one of the following values:
     key_by_type: boolean;//required Boolean, in query 	Must be true. 
 }
 
@@ -211,7 +212,7 @@ class StravaActivityApi {
     async getActivityStreams(props: IGetActivityStreams): Promise<entity.IStreamSet> {
         try {
             let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/streams`;
-            url = `${url}?key=${JSON.stringify(props.keys)}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
+            url = `${url}?keys=${props.keys.join(",")}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"

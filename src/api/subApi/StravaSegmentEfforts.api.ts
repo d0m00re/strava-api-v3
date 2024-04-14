@@ -9,12 +9,12 @@ interface IGetEffortsBySegmentId {
 }
 
 interface IGetSegmentEffortById {
-    id: number;//id of the segment effort
+    id: number | string;//id of the segment effort
 }
 
 interface IGetSegmentEffortStreams {
-    id: number;//required Long, in path 	The identifier of the segment effort.
-    keys: string[];//[]required array[String], in query 	The types of streams to return. May take one of the following values:
+    id: number | string;//required Long, in path 	The identifier of the segment effort.
+    keys: entity.TKeysPossibleType[];//[]required array[String], in query 	The types of streams to return. May take one of the following values:
     key_by_type: boolean; //required Boolean, in query 	Must be true. 
 }
 
@@ -82,7 +82,7 @@ class StravaSegmentEffortsApi {
         async getSegmentEffortStreams(props: IGetSegmentEffortStreams): Promise<entity.IStreamSet> {
             try {
                 let url = `${this.stravaApi.getBaseUrl()}/segment_efforts/${props.id}/streams`;
-                url = `${url}?key=${JSON.stringify(props.keys)}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
+                url = `${url}?keys=${props.keys.join(",")}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
                 const response = await fetch(url, {
                     headers: this.stravaApi.getAuthHeader(),
                     method: "GET"

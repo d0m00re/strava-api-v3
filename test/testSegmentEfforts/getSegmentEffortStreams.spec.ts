@@ -1,7 +1,13 @@
-import * as strava from "./../../src/";
+// todo : problem for finding segment effort id - fix that later
 
-// todo : fix it with real id for a segment effort
-describe('getSegmentEffortById', () => {
+import * as strava from "./../../src/";
+/*
+    accessToken : string;
+    clientId : string;
+    clientSecret : string;
+    refreshToken ?: string;
+*/
+describe('getSegmentEffortStreams', () => {
     test('base', async () => {
         const ApiStrava = new strava.Strava({
             accessToken : process.env.STRAVA_ACCESS_TOKEN ?? "",
@@ -10,7 +16,7 @@ describe('getSegmentEffortById', () => {
             clientSecret : process.env.STRAVA_CLIENT_SECRET ?? ""
         });
 
-        let data = await ApiStrava.segmentEffort.getSegmentEffortById({id : process.env.STRAVA_SEGMENT_EFFORT_ID ?? ""})
+        let data = await ApiStrava.segmentEffort.getSegmentEffortStreams({id : '0', keys : ["heartrate"], key_by_type : true})
         console.log("resp")
         console.log(data)
         expect(data.distance).toBeGreaterThan(10);

@@ -33,19 +33,26 @@ export interface IActivityTotal {
  */
 export type TActivityType = 'AlpineSki' | 'BackcountrySki' | 'Canoeing' | 'Crossfit' | 'EBikeRide' | 'Elliptical' | 'Golf' | 'Handcycle' | 'Hike' | 'IceSkate' | 'InlineSkate' | 'Kayaking' | 'Kitesurf' | 'NordicSki' | 'Ride' | 'RockClimbing' | 'RollerSki' | 'Rowing' | 'Run' | 'Sail' | 'Skateboard' | 'Snowboard' | 'Snowshoe' | 'Soccer' | 'StairStepper' | 'StandUpPaddling' | 'Surfing' | 'Swim' | 'Velomobile' | 'VirtualRide' | 'VirtualRun' | 'Walk' | 'WeightTraining' | 'Wheelchair' | 'Windsurf' | 'Workout' | 'Yoga';
 
-export interface IStreamSet {
-    time: ITimeStream;//TimeStream 	An instance of TimeStream.
-    distance: IDistanceStream;//DistanceStream 	An instance of DistanceStream.
-    latlng: ILatLngStream; //LatLngStream 	An instance of LatLngStream.
-    altitude: IAltitudeStream; //AltitudeStream 	An instance of AltitudeStream.
-    velocity_smooth: ISmoothVelocityStream; //SmoothVelocityStream 	An instance of SmoothVelocityStream.
-    heartrate: IHeartrateStream;  //HeartrateStream 	An instance of HeartrateStream.
-    cadence: ICadenceStream; //CadenceStream 	An instance of CadenceStream.
-    watts: IPowerStream; //PowerStream 	An instance of PowerStream.
-    temp: ITemperatureStream; //TemperatureStream 	An instance of TemperatureStream.
-    moving: IMovingStream; //MovingStream 	An instance of MovingStream.
-    grade_smooth: ISmoothGradeStream; //SmoothGradeStream 	An instance of SmoothGradeStream. 
+
+
+// bad type from api so new interface for route stream
+export interface IStreamRouteSetCorrect  {
+    type : "latlng" | "altitude" | "distance";
+    data : number[];
 }
+
+// mmmmmmm
+export type TKeysPossibleType = 'time' | 'distance' | 'latlng' | 'altitude' | 'velocity_smooth' | 'heartrate' | 'cadence' | 'watts' | 'temp' | 'moving' | 'grade_smooth';
+
+export interface IStreamActivitiesSetCorrect {
+    type : "latlng" | "altitude" | "distance" | any;
+    data : number[];
+    series_type  : TKeysPossibleType;
+    original_size : number;
+    resolution : "hight";
+}
+
+
 
 export interface ISummaryGear {
     id: string;//string 	The gear's unique identifier.
@@ -377,19 +384,7 @@ export interface IZone {
     power ?: IPowerZoneRanges;//PowerZoneRanges 	An insta
 }
 
-export interface IAltitudeStream {
-    original_size: number; //integer 	The number of data points in this stream
-    resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//float 	 The sequence of altitude values for this stream, in meters 
-}
 
-export interface ICadenceStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string; //string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//integer 	The sequence of cadence values for this stream, in rotations per minute 
-}
 
 export interface IDetailedGear {
     id: string; //string 	The gear's unique identifier.
@@ -483,54 +478,40 @@ export interface IDetailedSegmentEffort {
     visibility ?: any;
 }
 
-export interface IDistanceStream {
+export interface IGenericStream<T> {
     original_size: number;//integer 	The number of data points in this stream
     resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
     series_type: string;  //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//float 	The sequence of distance values for this stream, in meters 
+    data: T[];//float 	The sequence of distance values for this stream, in meters 
 }
 
-export interface IHeartrateStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//integer 	The sequence of heart rate values for this stream, in beats per minute 
+export interface ITimeStream extends IGenericStream<number>{};
+export interface IDistanceStream extends IGenericStream<number>{};
+export interface IHeartrateStream extends IGenericStream<number>{};
+export interface ILatLngStream extends IGenericStream<TLatLng>{};
+export interface IMovingStream extends IGenericStream<boolean>{};
+export interface IPowerStream extends IGenericStream<number>{};
+export interface ISmoothGradeStream extends IGenericStream<number>{};
+export interface ISmoothVelocityStream extends IGenericStream<number>{};
+export interface IAltitudeStream extends IGenericStream<number>{};
+export interface ICadenceStream extends IGenericStream<number>{};
+export interface ITemperatureStream extends IGenericStream<number>{};
+
+export type IStreamSet = {
+    time ?: ITimeStream;//TimeStream 	An instance of TimeStream.
+    distance ?: IDistanceStream;//DistanceStream 	An instance of DistanceStream.
+    latlng ?: ILatLngStream; //LatLngStream 	An instance of LatLngStream.
+    altitude ?: IAltitudeStream; //AltitudeStream 	An instance of AltitudeStream.
+    velocity_smooth ?: ISmoothVelocityStream; //SmoothVelocityStream 	An instance of SmoothVelocityStream.
+    heartrate ?: IHeartrateStream;  //HeartrateStream 	An instance of HeartrateStream.
+    cadence ?: ICadenceStream; //CadenceStream 	An instance of CadenceStream.
+    watts ?: IPowerStream; //PowerStream 	An instance of PowerStream.
+    temp ?: ITemperatureStream; //TemperatureStream 	An instance of TemperatureStream.
+    moving ?: IMovingStream; //MovingStream 	An instance of MovingStream.
+    grade_smooth ?: ISmoothGradeStream; //SmoothGradeStream 	An instance of SmoothGradeStream. 
 }
 
-export interface ILatLngStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: TLatLng; //LatLng 	The sequence of lat/long values for this stream 
-}
-
-export interface IMovingStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: boolean;//boolean 	The sequence of moving values for this stream, as boolean values 
-}
-
-export interface IPowerStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string;//string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//integer 	The sequence of power values for this stream, in watts 
-}
-
-export interface ISmoothGradeStream {
-    original_size: number; //integer 	The number of data points in this stream
-    resolution: string; //string 	The level of detail(sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string; //string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//float 	The sequence of grade values for this stream, as percents of a grade
-}
-
-export interface ISmoothVelocityStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//float 	The sequence of velocity values for this stream, in meters per second 
-}
+export type IStreamSetSegment = Pick<IStreamSet, "distance" | "latlng" | "altitude">
 
 export interface ISummaryActivity {
     id: number;//long 	The unique identifier of the activity
@@ -623,21 +604,7 @@ export interface ISummaryClub {
     url: string;//string 	The club's vanity URL. 
 }
 
-// data????
-export interface ITemperatureStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string;//string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//integer 	The sequence of temperature values for this stream, in celsius degrees 
-}
 
-// data ?????
-export interface ITimeStream {
-    original_size: number;//integer 	The number of data points in this stream
-    resolution: string; //string 	The level of detail (sampling) in which this stream was returned May take one of the following values: low, medium, high
-    series_type: string;//string 	The base series used in the case the stream was downsampled May take one of the following values: distance, time
-    data: number;//integer 	The sequence of time values for this stream, in seconds 
-}
 
 /**
  * A union type representing the time spent in a given zone.

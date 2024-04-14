@@ -14,7 +14,7 @@ interface IGetRouteById {
 }
 
 interface IGetRouteStreams {
-    id: number;
+    id: number | string;
 }
 
 class StravaRoutesApi {
@@ -32,8 +32,6 @@ class StravaRoutesApi {
     async getRouteAsGPX(props: IGetRouteAsGPX): Promise<string> {
         try {
             let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_gpx`;
-            console.log("url")
-            console.log(url)
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
@@ -60,8 +58,6 @@ class StravaRoutesApi {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
             }).then(resp => {
-                console.log("wtf")
-                console.log(resp);
                 return resp.text()
             });
 
@@ -95,7 +91,7 @@ class StravaRoutesApi {
      * Get Route Streams (getRouteStreams)
      * Returns the given route's streams. Requires read_all scope for private routes.
      */
-        async getRouteStreams(props: IGetRouteStreams): Promise<entity.IStreamSet> {
+        async getRouteStreams(props: IGetRouteStreams): Promise<entity.IStreamRouteSetCorrect[]> {
             try {
                 let url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/streams`;
                 const response = await fetch(url, {

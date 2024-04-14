@@ -22,9 +22,12 @@ interface IStarSegment {
     starred: boolean;//required Boolean, in form 	If true, star the segment; if false, unstar the segment. 
 }
 
+type TKeysSegmentStreams = "distance" | "latlng" | "altitude";
+type IStreamSetSegment = Pick<entity.IStreamSet, "distance" | "latlng" | "altitude">
+
 interface IGetSegmentStreams {
-    id: number;//required Long, in path 	The identifier of the segment.
-    keys: string[];//required array[String], in query 	The types of streams to return. May take one of the following values:
+    id: string;//required Long, in path 	The identifier of the segment.
+    keys: TKeysSegmentStreams[];//required array[String], in query 	The types of streams to return. May take one of the following values:
     key_by_type: boolean; //required Boolean, in query 	Must be true. 
 }
 
@@ -122,10 +125,10 @@ class StravaSegmentApi {
      * Get Segment Streams (getSegmentStreams)
      * Returns the given segment's streams. Requires read_all scope for private segments.
      */
-        async getSegmentStreams(props: IGetSegmentStreams): Promise<entity.IStreamSet> {
+        async getSegmentStreams(props: IGetSegmentStreams): Promise<IStreamSetSegment> {
             try {
                 let url = `${this.stravaApi.getBaseUrl()}/segments/${props.id}/streams`;
-                url = `${url}?key=${JSON.stringify(props.keys)}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
+                url = `${url}?keys=${props.keys.join(',')}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
     
                 const response = await fetch(url, {
                     headers: this.stravaApi.getAuthHeader(),
