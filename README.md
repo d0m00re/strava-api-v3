@@ -1,20 +1,19 @@
 # !!!!! DON T USE THIS CODE FOR THE MOMENT
 
 # strava-api-v3
-learn and create strava wrapper api implementation with ts/fetch
+`learn and create strava wrapper api implementation with ts/fetch`
 
 ## .env.exemple
 `.env exemple -> use that for testing purpose`
 
-## API ROUTES
-### athlete
-* getLoggedInAthlete : ok
+## usage
+```
+futur usage here
+```
 
-### club
-* getClubById : ok
-* getClubActivitiesById
+## api routes
 
-
+## -------------------------------------
 
 ## Get oauth token :
 
@@ -75,6 +74,6 @@ https://www.strava.com/oauth/token?client_id=your_client_id&client_secret=your_c
 * club_type : string; // doc no present
 * website : string; // doc no present
 
-# club member
+## club member
 member no present
 membership : 'member' | ???

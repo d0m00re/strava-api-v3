@@ -1,4 +1,8 @@
 # changelog
+## 0.0.4
+* package update
+* update build
+
 ## 0.0.31
 * add auth0 function
 * code refacto in smaller api class

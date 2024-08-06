@@ -2,7 +2,7 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface ICreateUpload {
-    file: File;//File, in form 	The uploaded file.
+    file: File | Buffer | string | any;// ReadStream // File, in form 	The uploaded file.
     name: string; //String, in form 	The desired name of the resulting activity.
     description: string; //String, in form 	The desired description of the resulting activity.
     trainer: string; //String, in form 	Whether the resulting activity should be marked as having been performed on a trainer.
