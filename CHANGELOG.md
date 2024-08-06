@@ -1,4 +1,8 @@
 # changelog
+
+## 0.0.41
+* fix entry point of the module
+
 ## 0.0.4
 * package update
 * update build
