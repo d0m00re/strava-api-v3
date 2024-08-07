@@ -8,3 +8,7 @@ tsconfig.json
 tsup.config.ts
 jest.config.ts
 jest.setup.ts
+
+CHANGELOG.md
+README.md
+.env.exemple

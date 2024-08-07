@@ -1,13 +1,19 @@
 {
   "name": "strava-api-v3",
   "type": "module",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "strava-api-v3 wrapper",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsup",
+    "dev": "tsup --watch",
     "clean": "rm -Rf ./dist",
     "test": "npx jest --config=jest.config.ts",
     "checkUpdate" : "npx npm-check-updates",

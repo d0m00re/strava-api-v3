@@ -2,8 +2,8 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetLoggedInAthleteActivities {
-    before: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place before a certain time.
-    after: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place after a certain time.
+    before?: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place before a certain time.
+    after?: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place after a certain time.
     page: number;//Integer, in query 	Page number. Defaults to 1.
     per_page: number;// Number of items per page. Defaults to 30. 
 }
@@ -36,7 +36,14 @@ class StravaAthleteApi {
     // http get "https://www.strava.com/api/v3/athlete/activities?before=&after=&page=&per_page=" "Authorization: Bearer [[token]]"
     async getLoggedInAthleteActivities(props: IGetLoggedInAthleteActivities): Promise<entity.ISummaryActivity[]> {
         try {
-            const url = `${this.stravaApi.getBaseUrl()}/athlete/activities?before=${props.before}&after=${props.after}&page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            let url = `${this.stravaApi.getBaseUrl()}/athlete/activities?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
+            //before=${props.before}&after=${props.after}&
+            if (props.before !== undefined)
+                url = `${url}&before=${props.before}`;
+
+            if (props.after !== undefined)
+                url = `${url}&after=${props.after}`;
+
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
                 method: "GET"
