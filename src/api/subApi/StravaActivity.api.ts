@@ -43,7 +43,6 @@ interface IUpdateActivityById {
     body: entity.IUpdatableActivity
 }
 
-
 interface IGetActivityStreams {
     id: number | string; //required Long, in path 	The identifier of the activity.
     keys: entity.TKeysPossibleType[]; //required array[String], in query 	Desired stream types. May take one of the following values:
@@ -230,7 +229,7 @@ class StravaActivityApi {
     // not present inside documentation ...
     async getActivitiesGpxById(id : string | number): Promise<any> {
         try {
-            const url = `${this.stravaApi.getBaseUrl()}/activities/${id}/export_gpx`;
+            const url = `https://www.strava.com/activities/${id}/export_gpx`;
             console.log(`----> ${url}`)
             const response = await fetch(url, {
                 headers: this.stravaApi.getAuthHeader(),
