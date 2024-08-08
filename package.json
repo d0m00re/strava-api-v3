@@ -1,7 +1,7 @@
 {
   "name": "strava-api-v3",
   "type": "module",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "strava-api-v3 wrapper",
   "exports": {
     ".": {

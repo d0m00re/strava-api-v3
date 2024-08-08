@@ -224,5 +224,25 @@ class StravaActivityApi {
             throw error;
         }
     }
+
+    //GET
+	//https://www.strava.com/activities/12087149535/export_gpx
+    // not present inside documentation ...
+    async getActivitiesGpxById(id : string | number): Promise<any> {
+        try {
+            const url = `${this.stravaApi.getBaseUrl()}/activities/${id}/export_gpx`;
+            console.log(`----> ${url}`)
+            const response = await fetch(url, {
+                headers: this.stravaApi.getAuthHeader(),
+                method: "GET"
+            }).then(resp => resp.json());
+
+            return response
+        } catch (error) {
+            console.error('Error fetching athlete profile:', error);
+            throw error;
+        }
+    }
 }
+
 export default StravaActivityApi;

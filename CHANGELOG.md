@@ -1,5 +1,8 @@
 # changelog
 
+## 0.0.47
+* add gpx retrieve with id inside activities api (not present inside documentation)
+
 ## 0.0.41
 * fix entry point of the module
 
