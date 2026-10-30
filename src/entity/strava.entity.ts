@@ -149,7 +149,7 @@ export interface ExplorerSegment {
  * Encapsulates the errors that may be returned from the API.
  */
 export interface IFault {
-    errors: IError;//Error 	The set of specific errors associated with this fault, if any.
+    errors: IError[];//Error 	The set of specific errors associated with this fault, if any.
     message: string; //string 	 The message of the fault.
 }
 

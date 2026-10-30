@@ -10,7 +10,7 @@ interface ICreateActivity {
     description?: string;//String, in form 	Description of the activity.
     distance?: number;//Float, in form 	In meters.
     trainer?: number;//Integer, in form 	Set to 1 to mark as a trainer activity.
-    commute?: number;//Integer, in form 	Set to 1 to mark as commute. 
+    commute?: number;//Integer, in form 	Set to 1 to mark as commute.
 }
 
 interface IGetActivityById {
@@ -40,13 +40,13 @@ interface IGetZonesByActivityId {
 
 interface IUpdateActivityById {
     id: number;
-    body: entity.IUpdatableActivity
+    body: Partial<entity.IUpdatableActivity>
 }
 
 interface IGetActivityStreams {
     id: number | string; //required Long, in path 	The identifier of the activity.
     keys: entity.TKeysPossibleType[]; //required array[String], in query 	Desired stream types. May take one of the following values:
-    key_by_type: boolean;//required Boolean, in query 	Must be true. 
+    key_by_type: boolean;//required Boolean, in query 	Must be true.
 }
 
 class StravaActivityApi {
@@ -55,152 +55,65 @@ class StravaActivityApi {
         this.stravaApi = stravaApi;
     }
 
+    /**
+     * Create an Activity (createActivity)
+     * Creates a manual activity for an athlete. Requires activity:write scope.
+     */
     async createActivity(props: ICreateActivity): Promise<entity.IDetailedActivity> {
-        try {
-            const response = await fetch(`${this.stravaApi.getBaseUrl()}/activities`, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "POST"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.stravaApi.request("POST", "/activities", { body: props });
     }
 
     /**
-* 
-* Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
-* @param props 
-* @returns 
-*/
+     * Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+     */
     async getActivityById(props: IGetActivityById): Promise<entity.IDetailedActivity> {
-        try {
-            let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}`;
-            if (props.include_all_efforts) {
-                url = `${url}?include_all_efforts`;
-            }
-
-            const response = await fetch(`${this.stravaApi.getBaseUrl()}/activities/${props.id}`, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}`, {
+            query: { include_all_efforts: props.include_all_efforts }
+        });
     }
 
     /**
- * 
- * List Activity Comments (getCommentsByActivityId)
- * Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
- * @param props 
- * @returns 
- */
+     * List Activity Comments (getCommentsByActivityId)
+     * Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+     */
     async getCommentsByActivityId(props: IGetActivityComments): Promise<entity.IComment[]> {
-        const { id, ...body } = props;
-
-        try {
-            let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/comments`;
-            url = `${url}?page_size=${props.page_size ?? 30}`;
-            if (props.after_cursor)
-                url = `${url}&after_cursor=${props.after_cursor}`;
-
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => {
-                console.log("resp")
-                console.log(resp)
-                return resp.json()
-            });
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}/comments`, {
+            query: { page_size: props.page_size ?? 30, after_cursor: props.after_cursor }
+        });
     }
 
     /**
-* List Activity Kudoers (getKudoersByActivityId)
-* Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
-* @param props 
-* @returns 
-*/
+     * List Activity Kudoers (getKudoersByActivityId)
+     * Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+     */
     async getKudoersByActivityId(props: IGetKudoersByActivityId): Promise<entity.ISummaryAthlete[]> {
-        const { id, ...body } = props;
-
-        try {
-            let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/kudos`;
-            url = `${url}?page=${props.page ?? 1}&per_page=${props.per_page ?? 30}`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}/kudos`, {
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+        });
     }
 
     /**
- * 
- * List Activity Laps (getLapsByActivityId)
- * Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
- */
+     * List Activity Laps (getLapsByActivityId)
+     * Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+     */
     async getLapsByActivityId(props: IGetLapsByActivityId): Promise<entity.ILap[]> {
-        const { id, ...body } = props;
-
-        try {
-            const response = await fetch(`${this.stravaApi.getBaseUrl()}/activities/${props.id}/laps`, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}/laps`);
     }
 
-    // http get "https://www.strava.com/api/v3/athlete/activities?before=&after=&page=&per_page=" "Authorization: Bearer [[token]]"
+    /**
+     * Get Activity Zones (getZonesByActivityId)
+     * Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
+     */
     async getZonesByActivityId(props: IGetZonesByActivityId): Promise<entity.IActivityZone[]> {
-        try {
-            const url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/zones`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}/zones`);
     }
 
-    async updateActivityById(props: IUpdateActivityById): Promise<entity.IUpdatableActivity> {
-        try {
-            const url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                body: JSON.stringify(props.body),
-                method: "PUT"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching gettin activities by id:', error);
-            throw error;
-        }
+    /**
+     * Update Activity (updateActivityById)
+     * Updates the given activity that is owned by the authenticated athlete. Requires activity:write.
+     */
+    async updateActivityById(props: IUpdateActivityById): Promise<entity.IDetailedActivity> {
+        return this.stravaApi.request("PUT", `/activities/${props.id}`, { body: props.body });
     }
 
     // ========================== stream
@@ -209,38 +122,9 @@ class StravaActivityApi {
      * Returns the given activity's streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities.
      */
     async getActivityStreams(props: IGetActivityStreams): Promise<entity.IStreamSet> {
-        try {
-            let url = `${this.stravaApi.getBaseUrl()}/activities/${props.id}/streams`;
-            url = `${url}?keys=${props.keys.join(",")}&key_by_type=${(props.key_by_type) ? "true" : "false"}`
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
-    }
-
-    //GET
-	//https://www.strava.com/activities/12087149535/export_gpx
-    // not present inside documentation ...
-    async getActivitiesGpxById(id : string | number): Promise<any> {
-        try {
-            const url = `https://www.strava.com/activities/${id}/export_gpx`;
-            console.log(`----> ${url}`)
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/activities/${props.id}/streams`, {
+            query: { keys: props.keys, key_by_type: props.key_by_type }
+        });
     }
 }
 

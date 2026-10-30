@@ -6,7 +6,7 @@ interface IGetRouteAsGPX {
 }
 
 interface IGetRouteAsTCX {
-    id: string;//required Long, in path 	The identifier of the route. 
+    id: string;//required Long, in path 	The identifier of the route.
 }
 
 interface IGetRouteById {
@@ -24,83 +24,37 @@ class StravaRoutesApi {
     }
 
     /**
-     * 
-    * Export Route GPX (getRouteAsGPX)
-    * Returns a GPX file of the route. Requires read_all scope for private routes.
-    * @return gpx file ??? 
-    */
+     * Export Route GPX (getRouteAsGPX)
+     * Returns a GPX file of the route. Requires read_all scope for private routes.
+     * @returns the gpx file content
+     */
     async getRouteAsGPX(props: IGetRouteAsGPX): Promise<string> {
-        try {
-            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_gpx`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => {
-                return resp.text();});
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/routes/${props.id}/export_gpx`, { text: true });
     }
 
     /**
      * Export Route TCX (getRouteAsTCX)
      * Returns a TCX file of the route. Requires read_all scope for private routes.
+     * @returns the tcx file content
      */
     async getRouteAsTCX(props: IGetRouteAsTCX): Promise<string> {
-        try {
-            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/export_tcx`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => {
-                return resp.text()
-            });
-
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/routes/${props.id}/export_tcx`, { text: true });
     }
 
     /**
-     *  Get Route (getRouteById)
+     * Get Route (getRouteById)
      * Returns a route using its identifier. Requires read_all scope for private routes.
      */
     async getRouteById(props: IGetRouteById): Promise<entity.IRoute> {
-        try {
-            const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}`;
-            const response = await fetch(url, {
-                headers: this.stravaApi.getAuthHeader(),
-                method: "GET"
-            }).then(resp => resp.json());
-
-            return response
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.stravaApi.request("GET", `/routes/${props.id}`);
     }
 
     /**
      * Get Route Streams (getRouteStreams)
      * Returns the given route's streams. Requires read_all scope for private routes.
      */
-        async getRouteStreams(props: IGetRouteStreams): Promise<entity.IStreamRouteSetCorrect[]> {
-            try {
-                const url = `${this.stravaApi.getBaseUrl()}/routes/${props.id}/streams`;
-                const response = await fetch(url, {
-                    headers: this.stravaApi.getAuthHeader(),
-                    method: "GET"
-                }).then(resp => resp.json());
-    
-                return response
-            } catch (error) {
-                console.error('Error fetching athlete profile:', error);
-                throw error;
-            }
-        }
+    async getRouteStreams(props: IGetRouteStreams): Promise<entity.IStreamRouteSetCorrect[]> {
+        return this.stravaApi.request("GET", `/routes/${props.id}/streams`);
+    }
 }
 export default StravaRoutesApi;

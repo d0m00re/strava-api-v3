@@ -17,7 +17,7 @@ String, in form 	The desired external identifier of the resulting activity.
 import fs from "fs/promises";
 import * as strava from "./../../src/";
 
-describe('getSegmentEffortStreams', () => {
+describe('createUpload', () => {
     test('base', async () => {
         const ApiStrava = new strava.Strava({
             accessToken: process.env.STRAVA_ACCESS_TOKEN ?? "",
@@ -26,26 +26,10 @@ describe('getSegmentEffortStreams', () => {
             clientSecret: process.env.STRAVA_CLIENT_SECRET ?? ""
         });
 
-        const path = "./test/testUpload/test.gpx";
-        const fd = await fs.open(path);
-        const readStream = fd.createReadStream();
-        //const buffer = await fs.readFile("./test/testUpload/test.gpx");
-        //const file = new File([buffer], "test.gpx", { type: "application/gpx+xml" });
-        //const data = await ApiStrava.segmentEffort.getSegmentEffortStreams({ id: '0', keys: ["heartrate"], key_by_type: true })
-       // console.log("file")
-       // console.log(buffer)
-
-       let formData = new FormData();
-       formData.append("name", "fake activity");
-       formData.append('description', "api test"),
-       formData.append('trainer', "test"),
-       formData.append('commute', "test"),
-       formData.append('data_type', "gpx"),
-       formData.append('external_id', "xdadadqeeqeqqe")
-      // formData.append("file", readStream);
+        const file = await fs.readFile("./test/testUpload/test.gpx");
 
         const data = await ApiStrava.upload.createUpload({
-            file : readStream,
+            file,
             name : "fake activity",
             description : "api test",
             trainer : "test",
@@ -53,8 +37,6 @@ describe('getSegmentEffortStreams', () => {
             data_type : "gpx",
             external_id : "xdadadqeeqeqqe"
         });
-        console.log("resp")
-        console.log(data)
-        expect(10).toBeGreaterThan(1);
+        expect(data.id).toBeDefined();
     });
 });

@@ -1,5 +1,3 @@
-# !!!!! DON T USE THIS CODE FOR THE MOMENT
-
 # strava-api-v3
 `learn and create strava wrapper api implementation with ts/fetch`
 

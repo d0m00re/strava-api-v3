@@ -42,7 +42,7 @@ interface IOutputGetTokenFromAuth {
 }
 
 /**
- * 
+ *
     read: read public segments, public routes, public profile data, public posts, public events, club feeds, and leaderboards
     read_all:read private routes, private segments, and private events for the user
     profile:read_all: read all profile information even if the user has set their profile visibility to Followers or Only You
@@ -61,39 +61,40 @@ class StravaAuth0Api {
         this.stravaApi = stravaApi;
     }
 
-    getAskAuthUrl(authToAsk : TAuthorization | string) {
-        const scope = (authToAsk === "t_allAuth") ? allAuth : authToAsk;
-        return `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&scope=${scope}`;
+    /**
+     * Url where the user grants access to the app, Strava then redirects to redirectUri with a `code` param.
+     */
+    getAskAuthUrl(authToAsk : TAuthorization | string, redirectUri: string = "http://localhost") {
+        const url = new URL("https://www.strava.com/oauth/authorize");
+        url.searchParams.set("client_id", this.stravaApi.getClientId());
+        url.searchParams.set("redirect_uri", redirectUri);
+        url.searchParams.set("response_type", "code");
+        url.searchParams.set("scope", (authToAsk === "t_allAuth") ? allAuth : authToAsk);
+        return url.toString();
     }
 
+    /**
+     * Exchange the authorization code from getAskAuthUrl for an access and refresh token.
+     */
     async getTokenFromAuth(authorizationCode: string): Promise<IOutputGetTokenFromAuth> {
-        try {
-            const url = `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${authorizationCode}&grant_type=authorization_code`;
-            
-            // require post request - retrieve new access and refresh token from strava api
-            const resp = await fetch(url, {method : "POST"}).then(resp => resp.json());
-            console.log("resp : ");
-            console.log(resp);
-      
-           return resp;
-        } catch (error) {
-            console.error('Error fetching athlete profile:', error);
-            throw error;
-        }
+        return this.postToken<IOutputGetTokenFromAuth>({ code: authorizationCode, grant_type: "authorization_code" });
     }
 
+    /**
+     * Get a new access token with a refresh token.
+     */
     async retrieveAccessTokenWtRefreshToken(refreshToken : string) : Promise<IRetrieveAccessTokenWtRefreshToken> {
-        try {
-            const url = `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&refresh_token=${refreshToken}&grant_type=refresh_token`;
-            const resp = await fetch(url, {method : "POST"}).then(resp => resp.json());
-            console.log("resp : ");
-            console.log(resp);
-            return resp;
-        }
-        catch(error) {
-            console.error('Error fetching retrieveAccessTokenWtRefreshToken', error);
-            throw error;
-        }
+        return this.postToken<IRetrieveAccessTokenWtRefreshToken>({ refresh_token: refreshToken, grant_type: "refresh_token" });
+    }
+
+    // secrets are sent in the body, never in the url
+    private async postToken<T>(params: Record<string, string>): Promise<T> {
+        const form = new URLSearchParams({
+            client_id: this.stravaApi.getClientId(),
+            client_secret: this.stravaApi.getClientSecret(),
+            ...params
+        });
+        return this.stravaApi.request("POST", "https://www.strava.com/oauth/token", { form, auth: false });
     }
 }
 export default StravaAuth0Api;

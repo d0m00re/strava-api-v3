@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.48",
   "description": "strava-api-v3 wrapper",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -11,13 +14,21 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -Rf ./dist",
     "test": "npx jest --config=jest.config.ts",
-    "checkUpdate" : "npx npm-check-updates",
-    "publish" : "npm publish"
+    "checkUpdate": "npx npm-check-updates",
+    "release": "npm publish",
+    "prepublishOnly": "npm run build && npm test"
   },
   "repository": {
     "type": "git",
@@ -29,7 +40,7 @@
     "typescript"
   ],
   "author": "d0m00re",
-  "license": "ISC",
+  "license": "MIT",
   "private": false,
   "bugs": {
     "url": "https://github.com/d0m00re/strava-api-v3/issues"
@@ -43,8 +54,5 @@
     "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "form-data": "^4.0.0"
   }
 }
