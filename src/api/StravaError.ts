@@ -18,7 +18,7 @@ export const parseRateLimit = (headers: Headers): IRateLimit | undefined => {
     const [shortTermLimit, dailyLimit] = limit.split(",").map(Number);
     const [shortTermUsage, dailyUsage] = usage.split(",").map(Number);
     return { shortTermLimit, shortTermUsage, dailyLimit, dailyUsage };
-}
+};
 
 /**
  * Thrown for every non 2xx response returned by the Strava API.
@@ -42,14 +42,18 @@ export class StravaError extends Error {
             response.status,
             fault.message ?? response.statusText,
             fault.errors ?? [],
-            parseRateLimit(response.headers)
+            parseRateLimit(response.headers),
         ] as const;
 
         switch (response.status) {
-            case 401: return new StravaAuthError(...args);
-            case 404: return new StravaNotFoundError(...args);
-            case 429: return new StravaRateLimitError(...args);
-            default: return new StravaError(...args);
+            case 401:
+                return new StravaAuthError(...args);
+            case 404:
+                return new StravaNotFoundError(...args);
+            case 429:
+                return new StravaRateLimitError(...args);
+            default:
+                return new StravaError(...args);
         }
     }
 }

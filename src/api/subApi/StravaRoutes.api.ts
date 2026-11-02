@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetRouteAsGPX {
-    id: string;//required Long, in path 	The iden
+    id: string; //required Long, in path 	The iden
 }
 
 interface IGetRouteAsTCX {
-    id: string;//required Long, in path 	The identifier of the route.
+    id: string; //required Long, in path 	The identifier of the route.
 }
 
 interface IGetRouteById {
-    id: string;//required Long, in path 	The ident
+    id: string; //required Long, in path 	The ident
 }
 
 interface IGetRouteStreams {
@@ -18,8 +18,8 @@ interface IGetRouteStreams {
 }
 
 class StravaRoutesApi {
-    stravaApi : StravaApi;
-    constructor (stravaApi : StravaApi) {
+    stravaApi: StravaApi;
+    constructor(stravaApi: StravaApi) {
         this.stravaApi = stravaApi;
     }
 

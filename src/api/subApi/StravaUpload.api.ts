@@ -2,17 +2,17 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface ICreateUpload {
-    file: Blob | Uint8Array | string;// File, in form 	The uploaded file. (Buffer works too, string = file content)
+    file: Blob | Uint8Array | string; // File, in form 	The uploaded file. (Buffer works too, string = file content)
     name?: string; //String, in form 	The desired name of the resulting activity.
     description?: string; //String, in form 	The desired description of the resulting activity.
     trainer?: string; //String, in form 	Whether the resulting activity should be marked as having been performed on a trainer.
-    commute?: string;//String, in form 	Whether the resulting activity should be tagged as a commute.
+    commute?: string; //String, in form 	Whether the resulting activity should be tagged as a commute.
     data_type: "fit" | "fit.gz" | "tcx" | "tcx.gz" | "gpx" | "gpx.gz"; //String, in form 	The format of the uploaded file. May take one of the following values: fit, fit.gz, tcx, tcx.gz, gpx, gpx.gz
-    external_id?: string;// String, in form 	The desired external identifier of the resulting activity.
+    external_id?: string; // String, in form 	The desired external identifier of the resulting activity.
 }
 
 interface IGetUploadById {
-    uploadId: number;//required Long, in path 	The identifier of the upload.
+    uploadId: number; //required Long, in path 	The identifier of the upload.
 }
 
 class StravaUploadApi {

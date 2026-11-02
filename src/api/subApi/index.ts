@@ -17,5 +17,5 @@ export {
     StravaSegmentApi,
     StravaSegmentEffortsApi,
     StravaUploadApi,
-    StravaAuth0Api
-}
+    StravaAuth0Api,
+};

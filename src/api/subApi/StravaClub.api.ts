@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetClubActivitiesById {
-    id: number;//required Long, in path 	The identifier of the club.
-    page?: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page?: number;//Integer, in query 	Number of items per page. Defaults to 30.
+    id: number; //required Long, in path 	The identifier of the club.
+    page?: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page?: number; //Integer, in query 	Number of items per page. Defaults to 30.
 }
 
 interface IGetClubAdminsById {
-    id: number;//required Long, in path 	The identifier of the club.
-    page?: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page?: number;// Integer, in query 	Number of items per page. Defaults to 30.
+    id: number; //required Long, in path 	The identifier of the club.
+    page?: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page?: number; // Integer, in query 	Number of items per page. Defaults to 30.
 }
 
 interface IGetClubById {
@@ -18,9 +18,9 @@ interface IGetClubById {
 }
 
 interface IGetClubMembersById {
-    id: number | string;//required Long, in path 	The identifier of the club.
-    page?: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page?: number;//Integer, in query 	Number of items per page. Defaults to 30.
+    id: number | string; //required Long, in path 	The identifier of the club.
+    page?: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page?: number; //Integer, in query 	Number of items per page. Defaults to 30.
 }
 
 class StravaClubApi {
@@ -36,7 +36,7 @@ class StravaClubApi {
      */
     async getClubActivitiesById(props: IGetClubActivitiesById): Promise<entity.IClubActivity[]> {
         return this.stravaApi.request("GET", `/clubs/${props.id}/activities`, {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 
@@ -45,7 +45,7 @@ class StravaClubApi {
      */
     async getClubAdminsById(props: IGetClubAdminsById): Promise<entity.ISummaryAthlete[]> {
         return this.stravaApi.request("GET", `/clubs/${props.id}/admins`, {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 
@@ -62,7 +62,7 @@ class StravaClubApi {
      */
     async getClubMembersById(props: IGetClubMembersById): Promise<entity.IClubAthlete[]> {
         return this.stravaApi.request("GET", `/clubs/${props.id}/members`, {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 }

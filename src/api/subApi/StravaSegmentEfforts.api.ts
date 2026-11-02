@@ -2,19 +2,19 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetEffortsBySegmentId {
-    segment_id: number;//required Integer, in query 	The identifier of the segment.
-    start_date_local?: string;//Date, in query 	ISO 8601 formatted date time.
-    end_date_local?: string;//Date, in query 	ISO 8601 formatted date time.
-    per_page?: number;//Integer, in query 	Number of it
+    segment_id: number; //required Integer, in query 	The identifier of the segment.
+    start_date_local?: string; //Date, in query 	ISO 8601 formatted date time.
+    end_date_local?: string; //Date, in query 	ISO 8601 formatted date time.
+    per_page?: number; //Integer, in query 	Number of it
 }
 
 interface IGetSegmentEffortById {
-    id: number | string;//id of the segment effort
+    id: number | string; //id of the segment effort
 }
 
 interface IGetSegmentEffortStreams {
-    id: number | string;//required Long, in path 	The identifier of the segment effort.
-    keys: entity.TKeysPossibleType[];//[]required array[String], in query 	The types of streams to return. May take one of the following values:
+    id: number | string; //required Long, in path 	The identifier of the segment effort.
+    keys: entity.TKeysPossibleType[]; //[]required array[String], in query 	The types of streams to return. May take one of the following values:
     key_by_type: boolean; //required Boolean, in query 	Must be true.
 }
 
@@ -31,7 +31,7 @@ class StravaSegmentEffortsApi {
      */
     async getEffortsBySegmentId(props: IGetEffortsBySegmentId): Promise<entity.IDetailedSegmentEffort[]> {
         return this.stravaApi.request("GET", "/segment_efforts", {
-            query: { ...props, per_page: props.per_page ?? 30 }
+            query: { ...props, per_page: props.per_page ?? 30 },
         });
     }
 
@@ -49,7 +49,7 @@ class StravaSegmentEffortsApi {
      */
     async getSegmentEffortStreams(props: IGetSegmentEffortStreams): Promise<entity.IStreamSet> {
         return this.stravaApi.request("GET", `/segment_efforts/${props.id}/streams`, {
-            query: { keys: props.keys, key_by_type: props.key_by_type }
+            query: { keys: props.keys, key_by_type: props.key_by_type },
         });
     }
 }

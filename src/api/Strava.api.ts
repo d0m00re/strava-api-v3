@@ -61,21 +61,21 @@ class StravaApi {
     }
 
     getBaseUrl = () => this.baseUrl;
-    setBaseUrl = (baseUrl: string) => this.baseUrl = baseUrl;
+    setBaseUrl = (baseUrl: string) => (this.baseUrl = baseUrl);
 
     getClientId = () => this.clientId;
-    setClientId = (clientId: string) => this.clientId = clientId;
+    setClientId = (clientId: string) => (this.clientId = clientId);
 
     getClientSecret = () => this.clientSecret;
-    setClientSecret = (clientSecret: string) => this.clientSecret = clientSecret;
+    setClientSecret = (clientSecret: string) => (this.clientSecret = clientSecret);
 
     getAccessToken = () => this.accessToken;
-    setAccessToken = (accessToken: string) => this.accessToken = accessToken;
+    setAccessToken = (accessToken: string) => (this.accessToken = accessToken);
 
     getRefreshToken = () => this.refreshToken;
-    setRefreshToken = (refreshToken: string) => this.refreshToken = refreshToken;
+    setRefreshToken = (refreshToken: string) => (this.refreshToken = refreshToken);
 
-    getAuthHeader = () => ({ 'Authorization': `Bearer ${this.accessToken}` });
+    getAuthHeader = () => ({ Authorization: `Bearer ${this.accessToken}` });
 
     /**
      * Send a request to the Strava API, throw a StravaError if the response is not ok.
@@ -98,7 +98,7 @@ class StravaApi {
         const response = await fetch(url, { method, headers, body });
         this.logger?.({ method, url: url.toString(), status: response.status, durationMs: Date.now() - start });
         if (!response.ok) throw await StravaError.fromResponse(response);
-        return options.text ? response.text() as Promise<T> : response.json();
+        return options.text ? (response.text() as Promise<T>) : response.json();
     }
 }
 

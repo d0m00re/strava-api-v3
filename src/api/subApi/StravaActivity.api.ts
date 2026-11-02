@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface ICreateActivity {
-    name: string;//required String, in form 	The name of the activity.
-    type?: string;//String, in form 	Type of activity. For example - Run, Ride etc.
+    name: string; //required String, in form 	The name of the activity.
+    type?: string; //String, in form 	Type of activity. For example - Run, Ride etc.
     sport_type: string; //required String, in form 	Sport type of activity. For example - Run, MountainBikeRide, Ride, etc.
     start_date_local: string; //required Date, in form 	ISO 8601 formatted date time.
-    elapsed_time: number;//required Integer, in form 	In seconds.
-    description?: string;//String, in form 	Description of the activity.
-    distance?: number;//Float, in form 	In meters.
-    trainer?: number;//Integer, in form 	Set to 1 to mark as a trainer activity.
-    commute?: number;//Integer, in form 	Set to 1 to mark as commute.
+    elapsed_time: number; //required Integer, in form 	In seconds.
+    description?: string; //String, in form 	Description of the activity.
+    distance?: number; //Float, in form 	In meters.
+    trainer?: number; //Integer, in form 	Set to 1 to mark as a trainer activity.
+    commute?: number; //Integer, in form 	Set to 1 to mark as commute.
 }
 
 interface IGetActivityById {
@@ -40,13 +40,13 @@ interface IGetZonesByActivityId {
 
 interface IUpdateActivityById {
     id: number;
-    body: Partial<entity.IUpdatableActivity>
+    body: Partial<entity.IUpdatableActivity>;
 }
 
 interface IGetActivityStreams {
     id: number | string; //required Long, in path 	The identifier of the activity.
     keys: entity.TKeysPossibleType[]; //required array[String], in query 	Desired stream types. May take one of the following values:
-    key_by_type: boolean;//required Boolean, in query 	Must be true.
+    key_by_type: boolean; //required Boolean, in query 	Must be true.
 }
 
 class StravaActivityApi {
@@ -68,7 +68,7 @@ class StravaActivityApi {
      */
     async getActivityById(props: IGetActivityById): Promise<entity.IDetailedActivity> {
         return this.stravaApi.request("GET", `/activities/${props.id}`, {
-            query: { include_all_efforts: props.include_all_efforts }
+            query: { include_all_efforts: props.include_all_efforts },
         });
     }
 
@@ -78,7 +78,7 @@ class StravaActivityApi {
      */
     async getCommentsByActivityId(props: IGetActivityComments): Promise<entity.IComment[]> {
         return this.stravaApi.request("GET", `/activities/${props.id}/comments`, {
-            query: { page_size: props.page_size ?? 30, after_cursor: props.after_cursor }
+            query: { page_size: props.page_size ?? 30, after_cursor: props.after_cursor },
         });
     }
 
@@ -88,7 +88,7 @@ class StravaActivityApi {
      */
     async getKudoersByActivityId(props: IGetKudoersByActivityId): Promise<entity.ISummaryAthlete[]> {
         return this.stravaApi.request("GET", `/activities/${props.id}/kudos`, {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 
@@ -123,7 +123,7 @@ class StravaActivityApi {
      */
     async getActivityStreams(props: IGetActivityStreams): Promise<entity.IStreamSet> {
         return this.stravaApi.request("GET", `/activities/${props.id}/streams`, {
-            query: { keys: props.keys, key_by_type: props.key_by_type }
+            query: { keys: props.keys, key_by_type: props.key_by_type },
         });
     }
 }

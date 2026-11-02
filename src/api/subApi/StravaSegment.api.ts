@@ -2,15 +2,15 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IExploreSegments {
-    bounds: string;//required array[Float], in query 	The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
-    activity_type?: string;//String, in query 	Desired activity type. May take one of the following values: running, riding
-    min_cat?: number;//Integer, in query 	The minimum climbing category.
-    max_cat?: number;//Integer, in query 	 The maximum climbing category.
+    bounds: string; //required array[Float], in query 	The latitude and longitude for two points describing a rectangular boundary for the search: [southwest corner latitutde, southwest corner longitude, northeast corner latitude, northeast corner longitude]
+    activity_type?: string; //String, in query 	Desired activity type. May take one of the following values: running, riding
+    min_cat?: number; //Integer, in query 	The minimum climbing category.
+    max_cat?: number; //Integer, in query 	 The maximum climbing category.
 }
 
 interface IGetLoggedInAthleteStarredSegments {
-    page ?: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page ?: number;//Integer, in query 	Number of items per page. Defaults to 30.
+    page?: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page?: number; //Integer, in query 	Number of items per page. Defaults to 30.
 }
 
 interface IGetSegmentById {
@@ -18,22 +18,22 @@ interface IGetSegmentById {
 }
 
 interface IStarSegment {
-    id: number;//required Long, in path 	The identifier of the segment to star.
-    starred: boolean;//required Boolean, in form 	If true, star the segment; if false, unstar the segment.
+    id: number; //required Long, in path 	The identifier of the segment to star.
+    starred: boolean; //required Boolean, in form 	If true, star the segment; if false, unstar the segment.
 }
 
 type TKeysSegmentStreams = "distance" | "latlng" | "altitude";
-type IStreamSetSegment = Pick<entity.IStreamSet, "distance" | "latlng" | "altitude">
+type IStreamSetSegment = Pick<entity.IStreamSet, "distance" | "latlng" | "altitude">;
 
 interface IGetSegmentStreams {
-    id: string;//required Long, in path 	The identifier of the segment.
-    keys: TKeysSegmentStreams[];//required array[String], in query 	The types of streams to return. May take one of the following values:
+    id: string; //required Long, in path 	The identifier of the segment.
+    keys: TKeysSegmentStreams[]; //required array[String], in query 	The types of streams to return. May take one of the following values:
     key_by_type: boolean; //required Boolean, in query 	Must be true.
 }
 
 class StravaSegmentApi {
-    stravaApi : StravaApi;
-    constructor (stravaApi : StravaApi) {
+    stravaApi: StravaApi;
+    constructor(stravaApi: StravaApi) {
         this.stravaApi = stravaApi;
     }
 
@@ -49,9 +49,11 @@ class StravaSegmentApi {
      * List Starred Segments (getLoggedInAthleteStarredSegments)
      * List of the authenticated athlete's starred segments. Private segments are filtered out unless requested by a token with read_all scope.
      */
-    async getLoggedInAthleteStarredSegments(props ?: IGetLoggedInAthleteStarredSegments): Promise<entity.ISummarySegment[]> {
+    async getLoggedInAthleteStarredSegments(
+        props?: IGetLoggedInAthleteStarredSegments,
+    ): Promise<entity.ISummarySegment[]> {
         return this.stravaApi.request("GET", "/segments/starred", {
-            query: { page: props?.page ?? 1, per_page: props?.per_page ?? 30 }
+            query: { page: props?.page ?? 1, per_page: props?.per_page ?? 30 },
         });
     }
 
@@ -77,7 +79,7 @@ class StravaSegmentApi {
      */
     async getSegmentStreams(props: IGetSegmentStreams): Promise<IStreamSetSegment> {
         return this.stravaApi.request("GET", `/segments/${props.id}/streams`, {
-            query: { keys: props.keys, key_by_type: props.key_by_type }
+            query: { keys: props.keys, key_by_type: props.key_by_type },
         });
     }
 }

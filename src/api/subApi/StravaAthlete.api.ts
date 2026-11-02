@@ -2,10 +2,10 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface IGetLoggedInAthleteActivities {
-    before?: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place before a certain time.
-    after?: number;//Integer, in query 	An epoch timestamp to use for filtering activities that have taken place after a certain time.
-    page: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page: number;// Number of items per page. Defaults to 30.
+    before?: number; //Integer, in query 	An epoch timestamp to use for filtering activities that have taken place before a certain time.
+    after?: number; //Integer, in query 	An epoch timestamp to use for filtering activities that have taken place after a certain time.
+    page: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page: number; // Number of items per page. Defaults to 30.
 }
 
 interface IGetStats {
@@ -13,18 +13,18 @@ interface IGetStats {
 }
 
 interface IUpdateLoggedInAthlete {
-    weight: number;//required Float, in path 	The weight of the athlete in kilograms.
+    weight: number; //required Float, in path 	The weight of the athlete in kilograms.
 }
 
 interface IGetLoggedInAthleteClubs {
-    page?: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page?: number;//Integer, in query 	Number of items per page. Defaults to 30.
+    page?: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page?: number; //Integer, in query 	Number of items per page. Defaults to 30.
 }
 
 interface IGetRoutesByAthleteId {
     id: number;
-    page: number;//Integer, in query 	Page number. Defaults to 1.
-    per_page: number;// Integer, in query 	Number of i
+    page: number; //Integer, in query 	Page number. Defaults to 1.
+    per_page: number; // Integer, in query 	Number of i
 }
 
 class StravaAthleteApi {
@@ -39,7 +39,7 @@ class StravaAthleteApi {
      */
     async getLoggedInAthleteActivities(props: IGetLoggedInAthleteActivities): Promise<entity.ISummaryActivity[]> {
         return this.stravaApi.request("GET", "/athlete/activities", {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30, before: props.before, after: props.after }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30, before: props.before, after: props.after },
         });
     }
 
@@ -80,7 +80,7 @@ class StravaAthleteApi {
      */
     async getLoggedInAthleteClubs(props: IGetLoggedInAthleteClubs): Promise<entity.ISummaryClub[]> {
         return this.stravaApi.request("GET", "/athlete/clubs", {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 
@@ -90,7 +90,7 @@ class StravaAthleteApi {
      */
     async getRoutesByAthleteId(props: IGetRoutesByAthleteId): Promise<entity.IRoute[]> {
         return this.stravaApi.request("GET", `/athletes/${props.id}/routes`, {
-            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 }
+            query: { page: props.page ?? 1, per_page: props.per_page ?? 30 },
         });
     }
 }
