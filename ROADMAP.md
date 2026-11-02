@@ -60,7 +60,7 @@ Objectif : chaque endpoint existant fonctionne, et une erreur HTTP lève une exc
 ### Packaging
 
 - Remplacer `.npmignore` par `"files": ["dist"]`.
-- Ajouter `"engines": { "node": ">=18" }`, `"sideEffects": false`, ainsi que `main`, `module` et `types`.
+- Ajouter `"engines": { "node": ">=22" }` (relevé de 18 à 22 en v0.2.0 : Vitest 5 et tsup 9 exigent Node 22), `"sideEffects": false`, ainsi que `main`, `module` et `types`.
 - Retirer la dépendance `form-data`, remplacée par le `FormData` natif.
 - Renommer le script `publish` (il se rappelle lui-même) et ajouter `prepublishOnly` : build puis tests.
 - Retirer « DON'T USE THIS CODE » du README.
@@ -76,11 +76,11 @@ Objectif : la lib tourne sans intervention dans une app longue durée (tokens ra
 - Séparer les tests unitaires mockés (`msw` ou un `fetch` injecté) des tests d'intégration, lancés seulement si `STRAVA_ACCESS_TOKEN` est défini.
 - Chaque test unitaire vérifie l'URL, la méthode, les headers, le body et le mapping des erreurs.
 - Supprimer les assertions liées à un compte personnel, comme `expect(data.calories).toBe(731)`.
-- Envisager Vitest à la place de Jest + ts-jest : ESM natif, configuration plus simple.
+- Vitest à la place de Jest + ts-jest : ESM natif, configuration plus simple.
 
 ### Intégration continue
 
-- GitHub Actions : lint, typecheck (`tsc --noEmit`), tests unitaires et build sur Node 18, 20 et 22.
+- GitHub Actions : lint, typecheck (`tsc --noEmit`), tests unitaires et build sur Node 22 et 24.
 - ESLint et Prettier.
 - `publint` et `@arethetypeswrong/cli` pour valider les exports ESM / CJS et les types.
 
@@ -191,8 +191,8 @@ Objectif : un nouvel utilisateur fait son premier appel en moins de 10 minutes a
 
 Une version n'est publiée que si tous ses critères sont cochés.
 
-- [ ] v0.1.0 : aucun `console.*` dans `src/`, chaque endpoint renvoie une `StravaError` sur un statut non 2xx
-- [ ] v0.2.0 : CI verte sur Node 18 / 20 / 22, chaque endpoint a un test unitaire mocké
+- [x] v0.1.0 : aucun `console.*` dans `src/`, chaque endpoint renvoie une `StravaError` sur un statut non 2xx
+- [x] v0.2.0 : CI verte sur Node 22 / 24, chaque endpoint a un test unitaire mocké
 - [ ] v0.3.0 : table de couverture à 100 % des endpoints publics du Swagger
 - [ ] v0.4.0 : zéro `any` dans les types exportés, guide de migration publié
 - [ ] v1.0.0 : README et TypeDoc en ligne, publication automatisée avec provenance

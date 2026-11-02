@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-      "strict": true,
-      "noImplicitAny": true,
-      "esModuleInterop": true,
-      "strictNullChecks": true,
-      "target": "ES2020",
-      "module": "ES2020",
-      "declaration": true,
-      "isolatedModules": true,
-      "moduleResolution": "Node",
-      "noEmit": true,
-      "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "outDir": "dist"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "spec"]
+  "include": ["src", "test", "*.config.ts"]
 }

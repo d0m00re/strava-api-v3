@@ -2,7 +2,7 @@ import * as entity from "../../entity/strava.entity";
 import StravaApi from "./../Strava.api";
 
 interface ICreateUpload {
-    file: Blob | Uint8Array | string; // File, in form 	The uploaded file. (Buffer works too, string = file content)
+    file: Blob | Uint8Array<ArrayBuffer> | string; // File, in form 	The uploaded file. (Buffer works too, string = file content)
     name?: string; //String, in form 	The desired name of the resulting activity.
     description?: string; //String, in form 	The desired description of the resulting activity.
     trainer?: string; //String, in form 	Whether the resulting activity should be marked as having been performed on a trainer.

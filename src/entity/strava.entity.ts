@@ -432,7 +432,7 @@ export interface ISummarySegmentEffort {
 }
 
 //A collection of #/TimedZoneRange objects. Stores the exclusive ranges representing zones and the time spent in each.
-type TTimedZoneDistribution = ITimedZoneRange[];
+export type TTimedZoneDistribution = ITimedZoneRange[];
 
 export interface IUpdatableActivity {
     commute: boolean; //boolean 	Whether this activity is a commute
